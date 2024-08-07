@@ -7,8 +7,6 @@ nav_order: 1
 
 # Child
 
-{: .no_toc }
+hello my name is mer
 
 ## Table of contents
-
-{: .no_toc .text-delta }
