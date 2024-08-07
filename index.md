@@ -25,4 +25,5 @@ Github Description
 
 안녕하세요 너무 게으른 mer입니다
 
-{: .note } 별거 아니지만 잘 부탁드립니다 🐵
+{: .note }
+Memento mori...
