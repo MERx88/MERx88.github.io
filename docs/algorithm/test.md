@@ -1,10 +1,10 @@
 ---
 layout: default
-title: test!
+title: Graph
 parent: Algorithm
 nav_order: 1
 ---
 
-# Child
+# Graph
 
-hello my name is mer
+Graph...
