@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Child1
-parent: React
+title: test!
+parent: algorithm
 nav_order: 1
 ---
 
