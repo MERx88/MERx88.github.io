@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Array
-parent: javascript
+parent: Javascript
 nav_order: 1
 ---
 
