@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Child1
-parent: Menu3
+parent: React
 nav_order: 1
 ---
 
