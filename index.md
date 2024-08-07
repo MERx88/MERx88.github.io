@@ -6,7 +6,7 @@ description: "description"
 permalink: /
 ---
 
-# Welcome to github.io
+<!-- # Welcome to github.io
 
 {: .fs-8 }
 
@@ -19,4 +19,10 @@ Github Description
 
 ## Getting started
 
-... (생략) ...
+... (생략) ... -->
+
+# Welcome to Mer Blog
+
+안녕하세요 너무 게으른 mer입니다
+
+{: .note } 별거 아니지만 잘 부탁드립니다 🐵
