@@ -1,7 +1,7 @@
 ---
 layout: default
 title: test!
-parent: algorithm
+parent: Algorithm
 nav_order: 1
 ---
 
