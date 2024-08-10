@@ -38,12 +38,11 @@ nav_order: 1
 
 작업시작하기 전 TO DO 리스트 작성도 대략 해보자
 
-우선 해야할거
-
-완료
-{: .label }
+TO-DO List
 
 1. ~~기능 생각해보기~~
+   완료
+   {: .label }
 2. 유튜브 키 발급 받기
 3. 유튜브 api 살펴보기
 4. 기능 명세서 작성
@@ -53,3 +52,81 @@ nav_order: 1
 8. 프론트엔드 문서 작성
 9. 백엔드 api 완성 시키기
 10. 프론트엔드 짬짬히 완성
+
+### 유튜브 API 살펴보기
+
+유튜브에서는 개발자에게 유튜브 API를 제공한다,
+[유튜브 API docs 바로가기!](https://developers.google.com/youtube/v3/getting-started?hl=ko#%EC%98%88-2){: .btn }
+
+[유튜브 API 사용해보기!](https://developers.google.com/youtube/v3/docs/channels/list?apix=true&hl=ko&apix_params=%7B%22part%22%3A%5B%22snippet%2CcontentDetails%2Cstatistics%22%5D%2C%22forHandle%22%3A%22%40user-nm1id1hr8f%22%7D){: .btn }
+
+키를 발급 받고 사용하면 되는데 우선 키를 받기 전 내가 구현하고 싶은 기능들을 구현 가능한지 체크하고 넘어가자
+
+**채널 정보 받아오기**
+
+```http
+GET https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&forHandle=%40user-nm1id1hr8f&key=[YOUR_API_KEY] HTTP/1.1
+
+Authorization: Bearer [YOUR_ACCESS_TOKEN]
+Accept: application/json
+```
+
+```json
+{
+  "kind": "youtube#channelListResponse",
+  "etag": "q8-FfK-xVBO8g8cgIday2IuE7rg",
+  "pageInfo": {
+    "totalResults": 1,
+    "resultsPerPage": 5
+  },
+  "items": [
+    {
+      "kind": "youtube#channel",
+      "etag": "gk9nYBqrRrBvvptWJpNt5iIn0Us",
+      "id": "UCSkxf8rEikMXb5Bgc92u_lQ",
+      "snippet": {
+        "title": "유니 발닦개",
+        "description": "스텔라이브 \"팬페이지\"  입니다.  \n\n피드백 및 불만사항등등 : djdejd235@gmail.com \n",
+        "customUrl": "@user-nm1id1hr8f",
+        "publishedAt": "2022-01-22T18:05:04.398155Z",
+        "thumbnails": {
+          "default": {
+            "url": "https://yt3.ggpht.com/BuTK3zR07vGMcjGDf4J12g1QZEAGf_hti7Q4O4vSpCY5z4eOGQgV1_7viGm-Q5VUmxGLGelKa_0=s88-c-k-c0x00ffffff-no-rj",
+            "width": 88,
+            "height": 88
+          },
+          "medium": {
+            "url": "https://yt3.ggpht.com/BuTK3zR07vGMcjGDf4J12g1QZEAGf_hti7Q4O4vSpCY5z4eOGQgV1_7viGm-Q5VUmxGLGelKa_0=s240-c-k-c0x00ffffff-no-rj",
+            "width": 240,
+            "height": 240
+          },
+          "high": {
+            "url": "https://yt3.ggpht.com/BuTK3zR07vGMcjGDf4J12g1QZEAGf_hti7Q4O4vSpCY5z4eOGQgV1_7viGm-Q5VUmxGLGelKa_0=s800-c-k-c0x00ffffff-no-rj",
+            "width": 800,
+            "height": 800
+          }
+        },
+        "localized": {
+          "title": "유니 발닦개",
+          "description": "스텔라이브 \"팬페이지\"  입니다.  \n\n피드백 및 불만사항등등 : djdejd235@gmail.com \n"
+        },
+        "country": "KR"
+      },
+      "contentDetails": {
+        "relatedPlaylists": {
+          "likes": "",
+          "uploads": "UUSkxf8rEikMXb5Bgc92u_lQ"
+        }
+      },
+      "statistics": {
+        "viewCount": "22726713",
+        "subscriberCount": "18900",
+        "hiddenSubscriberCount": false,
+        "videoCount": "949"
+      }
+    }
+  ]
+}
+```
+
+채널 정보는 위와같이 가져올수 있다. 필요한 정보는 다가져오는거 같다. (채널대상! ㅣ 유니 발닦개님)
