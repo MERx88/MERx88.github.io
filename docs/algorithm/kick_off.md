@@ -7,9 +7,15 @@ nav_order: 1
 
 # Kick off
 
+{: .no_toc }
+
 그저 이제 시작하는... 범부
 
 프로그래머스 입문 문제로 기초 다지기
+
+## Table of contents
+
+{: .no_toc .text-delta }
 
 1. TOC
    {:toc}
