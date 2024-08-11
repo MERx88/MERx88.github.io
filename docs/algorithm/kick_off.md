@@ -121,19 +121,79 @@ console.log(result); //4
 console.log(arr); //[3,4,1,2]
 ```
 
-### Arrray.prototype.splice 함수 (작성중)
+### Arrray.prototype.splice 함수
+
+중간에 있는 요소를 변경할때 사용한다. 하지만 중간 요소 삭제, 중간에 요소 삽입등 다양한 작업이 가능한 메소드로 꽤나 유용한거 같다
 
 **특징**
 
-1. 인수로 받은 값을 제일 처음요소로 추가한다. 즉, 원본 배열이 수정된다.
-2. 변경된 배열의 길이(length)를 반환한다.
+1. 원본 배열이 수정된다.
+2. 삭제된 요소를 반환한다.
+
+`arr.splice(start, deleteCount, items...);`
+
+start : 제거를 시작할 인덱스!
+
+deleteCount : 제거 갯수
+
+items : 삽입할 아이템들
 
 ```js
-const arr = [1, 2];
+const arr = [1, 2, 3, 4];
 
-let result = arr.unshift(3, 4);
+let result = arr.splice(1, 2, 20, 30);
 
-console.log(result); //4
+console.log(result); //[2,3]
 
-console.log(arr); //[3,4,1,2]
+console.log(arr); //[1,20,30,4]
 ```
+
+start만 넘겨주면 그이후로 싹다 삭제된다. `let result = arr.splice(1);` 라면 arr은 [1,2]가 된다.
+이외에 다양하게 응용가능하다.
+
+## 2024_08_11
+
+8_10에 이어서 블로그를 시작하기 전 공부했던 알고리즘에서 배운 개념과 자바스크립트 문법 정리
+
+### Arrray.prototype.includes 함수
+
+뭔가 다양하게 포함을 확인할 수 있을거 같았는데 생각보다 제한적이다.
+
+**특징**
+
+1. boolean 값 반환
+
+`arr.includes(검색할 대상, 검색 시작 인덱스);`
+
+```js
+const arr = [1, 2, 3, 4];
+
+arr.splice(1); //true
+
+arr.splice(1, 1); //false
+
+arr.splice(4, -1); //true
+```
+
+인덱스 -1을 주게되면 length-1 값부터 확인한다.
+
+### 문자열! String!
+
+텍스트 데이터를 나타낼때 사용되며 일반적인 표기는 ('') 작은 따옴표로 감싸는 것!
+
+**문자열은 변경불가능한값이다**
+
+{: .highlight }
+🧐 근데 의문인점... 변경 불가능이라면서 아래 처럼 추가는 어떻게 되는거지...?
+
+```js
+let my_string = "B";
+console.log((my_string += "A")); //'BA'
+```
+
+문자열 변경불가능에 대해 찾아보다가 자바스크립트의 값이 어떻게 할당되는지 명확히 할필요가 있어보여 이에 대해 명확히하고 넘어가고자 살펴보았다.
+
+[Link to another page]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/).
+
+{: .highlight }
+🧐 인덱스 -1은 사용할수없는가...?

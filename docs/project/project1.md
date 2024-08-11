@@ -41,8 +41,9 @@ nav_order: 1
 TO-DO List
 
 1. ~~기능 생각해보기~~
-   완료
-   {: .label }
+   {: .d-inline-block }
+   완료 {: .label .label-green }
+
 2. 유튜브 키 발급 받기
 3. 유튜브 api 살펴보기
 4. 기능 명세서 작성
