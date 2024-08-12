@@ -131,3 +131,140 @@ Accept: application/json
 ```
 
 채널 정보는 위와같이 가져올수 있다. 필요한 정보는 다가져오는거 같다. (채널대상! ㅣ 유니 발닦개님)
+
+**동영상 정보 받아오기**
+
+```http
+GET https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=qcvgxgfnp9E&key=[YOUR_API_KEY] HTTP/1.1
+
+Authorization: Bearer [YOUR_ACCESS_TOKEN]
+Accept: application/json
+```
+
+```json
+{
+  "kind": "youtube#videoListResponse",
+  "etag": "GU7u4tga6TzbOOslClg1N3ROK-Q",
+  "items": [
+    {
+      "kind": "youtube#video",
+      "etag": "N2xP9qsfKDVOw-ZuPei1ch0Fl58",
+      "id": "qcvgxgfnp9E",
+      "snippet": {
+        "publishedAt": "2024-03-22T14:06:59Z",
+        "channelId": "UCSkxf8rEikMXb5Bgc92u_lQ",
+        "title": "ai도파 - 씨유어게인 히나 반응",
+        "description": "수익창출xx\n치지직꾸\n[칸나]\n▶https://chzzk.naver.com/f722959d1b8e651bd56209b343932c01\n[유니]\n▶https://chzzk.naver.com/45e71a76e949e16a34764deb962f9d9f\n[히나] \n▶https://chzzk.naver.com/b044e3a3b9259246bc92e863e7d3f3b8\n[마시로] \n▶https://chzzk.naver.com/4515b179f86b67b4981e16190817c580\n[리제]\n▶https://chzzk.naver.com/4325b1d5bbc321fad3042306646e2e50\n[타비]\n▶https://chzzk.naver.com/a6c4ddb09cdb160478996007bff35296\n\n시라유키 히나\n\n유튜브 :https://www.youtube.com/@shirayukihina \n다시보기 : https://www.youtube.com/@hinareplay/featured  \n트위터 : https://twitter.com/Shirayukihina_\n\n#버튜버 #히나   #vtuber #스텔라이브",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/qcvgxgfnp9E/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/qcvgxgfnp9E/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/qcvgxgfnp9E/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          },
+          "standard": {
+            "url": "https://i.ytimg.com/vi/qcvgxgfnp9E/sddefault.jpg",
+            "width": 640,
+            "height": 480
+          },
+          "maxres": {
+            "url": "https://i.ytimg.com/vi/qcvgxgfnp9E/maxresdefault.jpg",
+            "width": 1280,
+            "height": 720
+          }
+        },
+        "channelTitle": "유니 발닦개",
+        "tags": [
+          "버튜버",
+          "vtuber",
+          "Vtuber",
+          "브이튜버",
+          "이세계아이돌",
+          "이세돌",
+          "우왁굳",
+          "한동숙",
+          "홀로라이브",
+          "니지산지",
+          "사쿠라미코",
+          "미코",
+          "스이세이",
+          "페코라",
+          "노엘",
+          "호쇼마린",
+          "라플라스",
+          "클로에",
+          "코보",
+          "칼리오페",
+          "가우르구라",
+          "왓슨",
+          "아멜리아",
+          "랄로",
+          "파카",
+          "도파",
+          "미야고",
+          "트위치",
+          "일본",
+          "수박게임",
+          "스텔라이브",
+          "칸나",
+          "히나",
+          "유니",
+          "강지",
+          "시로",
+          "리제",
+          "타비",
+          "아이리칸나",
+          "아야츠노유니",
+          "시라유키히나",
+          "네네코마시로",
+          "아카네리제",
+          "아라하시타비",
+          "버튜",
+          "랄로히나",
+          "히나랄로"
+        ],
+        "categoryId": "24",
+        "liveBroadcastContent": "none",
+        "localized": {
+          "title": "ai도파 - 씨유어게인 히나 반응",
+          "description": "수익창출xx\n치지직꾸\n[칸나]\n▶https://chzzk.naver.com/f722959d1b8e651bd56209b343932c01\n[유니]\n▶https://chzzk.naver.com/45e71a76e949e16a34764deb962f9d9f\n[히나] \n▶https://chzzk.naver.com/b044e3a3b9259246bc92e863e7d3f3b8\n[마시로] \n▶https://chzzk.naver.com/4515b179f86b67b4981e16190817c580\n[리제]\n▶https://chzzk.naver.com/4325b1d5bbc321fad3042306646e2e50\n[타비]\n▶https://chzzk.naver.com/a6c4ddb09cdb160478996007bff35296\n\n시라유키 히나\n\n유튜브 :https://www.youtube.com/@shirayukihina \n다시보기 : https://www.youtube.com/@hinareplay/featured  \n트위터 : https://twitter.com/Shirayukihina_\n\n#버튜버 #히나   #vtuber #스텔라이브"
+        },
+        "defaultAudioLanguage": "ko"
+      },
+      "contentDetails": {
+        "duration": "PT4M14S",
+        "dimension": "2d",
+        "definition": "hd",
+        "caption": "false",
+        "licensedContent": false,
+        "regionRestriction": {
+          "blocked": ["BY", "RU"]
+        },
+        "contentRating": {},
+        "projection": "rectangular"
+      },
+      "statistics": {
+        "viewCount": "138883",
+        "likeCount": "1167",
+        "favoriteCount": "0",
+        "commentCount": "162"
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 1,
+    "resultsPerPage": 1
+  }
+}
+```
+
+동영상 정보 또한 잘 받아온다 (근데 태그 겁나 많다...)
