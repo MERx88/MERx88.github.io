@@ -33,149 +33,17 @@ nav_order: 1
 
 블로그를 시작하기 전 공부했던 알고리즘에서 배운 개념과 자바스크립트 문법 정리
 
-### Arrray.prototype.sort 함수
+[Arrray.prototype.sort Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
 
-**특징**
+[Arrray.prototype.push Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
 
-1. 원본배열을 변경한다.
-2. 기본적으로 오름차순으로 요소를 정렬한다. (유니코드 코드 포인트 기준)
-
-```js
-const fruit = ["Banana", "Orange", "Apple"];
-
-fruit.sort();
-
-console.log(fruit); //["Apple", "Banana", "Orange"]
-```
-
-위와 같이 영어, 한글 모두 오름차순 정렬 된다.
-
-```js
-const points = [40, 100, 1];
-
-points.sort();
-
-console.log(points); //[1,100,40]
-```
-
-하지만 위와 같이 숫자로 된 배열은 정렬을 할때 숫자타입을 문자타입으로 변환하고 유니코드 코드 포인트 기준으로 정렬하기 때문에 전혀 다른 결과물을 출력한다. 그렇기 때문에 숫자를 정렬할때에는 정렬순서를 정의하는 비교함수를 인수로 전달 해야한다.
-
-```js
-arr.sort((next, prev) => next - prev);
-```
-
-위와같이 비교함수를 넘겨 주면
-
-next - prev가 0이거나 양수면 변경하사항이 없지만 음수가 되면 자리가 바뀐다.
-
-으로 평가하여 배열을 정렬하게 된다.
-
-```js
-const points = [40, 100, 1];
-
-points.sort((a, b) => a - b); //100-40은 양수이므로 자리가 바뀌지 않는다. 오름차순 정렬이 된다.
-
-console.log(points); //[1,40,100]
-```
-
-```js
-const points = [40, 100, 1];
-
-points.sort((a, b) => b - a); //100-40은 양수이므로 자리가 바뀐다. 내림차순으로 정렬이 된다.
-
-console.log(points); //[100,40,1]
-```
-
-### Arrray.prototype.push 함수
-
-**특징**
-
-1. 인수로 받은 값을 마지막요소로 추가한다. 즉, 원본 배열이 수정된다.
-2. 변경된 배열의 길이(length)를 반환한다.
-3. 성능면에서 좋지 않다.
-
-```js
-const arr = [1, 2];
-
-let result = arr.push(3, 4);
-
-console.log(result); //4
-
-console.log(arr); //[1,2,3,4]
-```
-
-### Arrray.prototype.unshift 함수
-
-**특징**
-
-1. 인수로 받은 값을 제일 처음요소로 추가한다. 즉, 원본 배열이 수정된다.
-2. 변경된 배열의 길이(length)를 반환한다.
-
-```js
-const arr = [1, 2];
-
-let result = arr.unshift(3, 4);
-
-console.log(result); //4
-
-console.log(arr); //[3,4,1,2]
-```
-
-### Arrray.prototype.splice 함수
-
-중간에 있는 요소를 변경할때 사용한다. 하지만 중간 요소 삭제, 중간에 요소 삽입등 다양한 작업이 가능한 메소드로 꽤나 유용한거 같다
-
-**특징**
-
-1. 원본 배열이 수정된다.
-2. 삭제된 요소를 반환한다.
-
-`arr.splice(start, deleteCount, items...);`
-
-start : 제거를 시작할 인덱스!
-
-deleteCount : 제거 갯수
-
-items : 삽입할 아이템들
-
-```js
-const arr = [1, 2, 3, 4];
-
-let result = arr.splice(1, 2, 20, 30);
-
-console.log(result); //[2,3]
-
-console.log(arr); //[1,20,30,4]
-```
-
-start만 넘겨주면 그이후로 싹다 삭제된다. `let result = arr.splice(1);` 라면 arr은 [1,2]가 된다.
-이외에 다양하게 응용가능하다.
+[Arrray.prototype.splice Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
 
 ## 2024_08_11
 
 8_10에 이어서 블로그를 시작하기 전 공부했던 알고리즘에서 배운 개념과 자바스크립트 문법 정리
 
-### Arrray.prototype.includes 함수
-
-뭔가 다양하게 포함을 확인할 수 있을거 같았는데 생각보다 제한적이다.
-
-**특징**
-
-1. boolean 값 반환
-
-`arr.includes(검색할 대상, 검색 시작 인덱스);`
-
-```js
-const arr = [1, 2, 3, 4];
-
-arr.splice(1); //true
-
-arr.splice(1, 1); //false
-
-arr.splice(4, -1); //true
-```
-
-인덱스 -1을 주게되면 length-1 값부터 확인한다.
+[Arrray.prototype.includes Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
 
 ### 문자열! String!
 
@@ -200,7 +68,46 @@ console.log((my_string += "A")); //'BA'
 {: .highlight }
 🧐 인덱스 -1은 사용할수없는가...?
 
+C언어나 다른 배열에서 -1을 사용하여 마지막 요소를 찾을 수 있는데 왜 못찾을까 했는데 쟈스 배열은 객체라는 사실 때문에 못찾았던 것이다 자세한건 아래 링크에 정리했다.
+[쟈스 배열 Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
+
 ## 2024_08_21
 
 {: .note }
 `Math.round` ->소수점 이하를 반올림하는 메서드
+
+### 구슬을 나누는 경우의 수
+
+{: .d-inline-block }
+코딩테스트 문제 {: .label .label-blue } 프로그래머스 {: .label .label-purple }
+
+https://school.programmers.co.kr/learn/courses/30/lessons/120840
+
+조합 공식을 통해 공을 뽑는 경우의 수 구하기 문제
+
+내 생각
+
+- 팩토리얼은 재귀함수로 구현한다.
+
+생각하지 못한 것
+
+- 공의 갯수와 뽑아야 하는 갯수가 같은 경우 -> 이경우는 1이다. 예외를 생각하지 못했다.
+
+궁금한 것
+
+- Math.round 라는 메서드를 사용해야 풀리는데 왜일까?
+  => 10진수의 소수를 2진수로 표현하는데 무한소수 현상이 발생해서 값이 미세하게 달라질수있다. (10진수 소수를 2진수 소수로 바꿀때 저장공간의 한계로 값이 달라진다.)
+- 그리고 왜 분모를 ()로 감싸줘야 풀릴까? -> 이건 사실 당연한거다 나누고 곱하면 당연히 값이 달라지지...빡대갈아
+
+### 문자열 정렬하기 (1)
+
+{: .d-inline-block }
+코딩테스트 문제 {: .label .label-blue } 프로그래머스 {: .label .label-purple }
+
+문자열에서 숫자만 뽑아 오름차순으로 정렬하는 문제
+
+새롭게 안 사실
+
+- 문자앞에 +를 붙이면 타입이 number로 바뀐다 이런식으로 '1' -> 1 좀더 확장하면 산술연산자가 붙으면 number로 강제 형변환이 되는거 같다
+
+- `isNaN()` : 숫자가 아니면 true를 반환한다. (is not number?) string 숫자 , number 숫자 모두 false를 반환한다!
