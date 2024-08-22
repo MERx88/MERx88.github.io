@@ -102,7 +102,10 @@ https://school.programmers.co.kr/learn/courses/30/lessons/120840
 ### 문자열 정렬하기 (1)
 
 {: .d-inline-block }
-코딩테스트 문제 {: .label .label-blue } 프로그래머스 {: .label .label-purple }
+코딩테스트 문제
+{: .label .label-blue }
+프로그래머스
+{: .label .label-purple }
 
 문자열에서 숫자만 뽑아 오름차순으로 정렬하는 문제
 
