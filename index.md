@@ -25,9 +25,9 @@ Github Description
 
 안녕하세요 너무 게으른 mer입니다
 
-<img src="../../assets/images/Chrollo.jpeg" width="120px">
+<img src="../../assets/images/Ryo Yamada.jpeg" width="360px">
 
-![Alt text](../../assets/images/Chrollo.jpeg)
+가보자잇 👍
 
 {: .highlight }
 Memento mori...DO TOXIC
