@@ -27,5 +27,7 @@ Github Description
 
 <img src="../../assets/images/Chrollo.jpeg", width="120px">
 
+![Alt text](../../assets/images/Chrollo.jpeg)
+
 {: .highlight }
 Memento mori...DO TOXIC
