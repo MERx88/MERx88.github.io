@@ -2,7 +2,7 @@
 layout: default
 title: Array
 parent: Javascript
-nav_order: 1
+nav_order: 2
 ---
 
 # Array
