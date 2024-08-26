@@ -279,4 +279,4 @@ Accept: application/json
 
 한동안 작성을 못했는데 세부 기능 및 와이어프레임을 대충 생각해보자
 
-<img src=”../../assets/images/project1_draft_wireframe.png” width=”360px”>
+<img src="/Users/jangseunghun/Develop/merx88.github.io/assets/images/project1_draft_wireframe.png" width="360px">
