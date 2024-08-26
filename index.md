@@ -25,7 +25,7 @@ Github Description
 
 안녕하세요 너무 게으른 mer입니다
 
-<img src="./assets/images/Chrollo.jpeg", width="120px">
+<img src="../../assets/images/Chrollo.jpeg", width="120px">
 
 {: .highlight }
 Memento mori...DO TOXIC

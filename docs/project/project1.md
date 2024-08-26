@@ -275,4 +275,8 @@ Accept: application/json
 
 그리고 좋은점은 언어별 라이브러리를 제공한다. 나는 자바스크립트 즉, node.js 로 개발을 할것이기 때문에 잘 사용하면 좋을거같다.
 
-**동영상 정보 받아오기**
+## 2024_08_26
+
+한동안 작성을 못했는데 세부 기능 및 와이어프레임을 대충 생각해보자
+
+<img src=”../../assets/images/project1_draft_wireframe.png”, width=”120px”>
