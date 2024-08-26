@@ -3,6 +3,7 @@ layout: default
 title: Kick off
 parent: Algorithm
 nav_order: 1
+toc: true
 ---
 
 # Kick off
