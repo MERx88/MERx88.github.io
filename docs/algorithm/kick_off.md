@@ -247,7 +247,11 @@ function solution(emergency) {
 ```
 
 - 이중 반복문을 사용할필요가 없었다. 사실 indexOf 를 사용하면 잘 풀릴걸 알고있었지만 사용법을 잘몰랐던거 같다.
+- 그리고 slice를 쓰는데 `[...emergency]` 처럼 깊은 복사를 위해 사용되었다고 한다. slice도 자세히 알아보자
 - 그래도 접근법은 비슷하다!
 
 **indexOf이란?**
 [indexOf Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
+
+**slice란?**
+[slice Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
