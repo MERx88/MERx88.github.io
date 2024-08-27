@@ -214,3 +214,40 @@ https://school.programmers.co.kr/learn/courses/30/lessons/120840
 
 **Set이란?**
 [Set Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
+
+## 2024_08_25
+
+### 진료순서 정하기
+
+코딩테스트 문제
+{: .label .label-blue }
+프로그래머스
+{: .label .label-purple }
+
+https://school.programmers.co.kr/learn/courses/30/lessons/120835/solution_groups?language=javascript
+
+부상의 정도를 보고 이를 우선순위로 바꾸는 문제
+
+**내 생각**
+
+- 우선순위 정렬된 배열과 정렬되지 않은 기존 배열을 비교해서 정렬된 배열 요소의 인덱스를 차례로 넣어주면 되지않을까 생각함
+- 이중 반복문을 사용하기에 시간복잡도 면에서 아쉽다.
+
+**문제점**
+
+- 배열을 다른 배열에 할당할때 얕은 복사가 되므로 다른 배열을 수정하면 기존배열이 수정된다... -> `[...emergency]`그래서 다음과 같이 스프레드해주었다.
+
+**다른 사람 풀이**
+
+```js
+function solution(emergency) {
+  let sorted = emergency.slice().sort((a, b) => b - a);
+  return emergency.map((v) => sorted.indexOf(v) + 1);
+}
+```
+
+- 이중 반복문을 사용할필요가 없었다. 사실 indexOf 를 사용하면 잘 풀릴걸 알고있었지만 사용법을 잘몰랐던거 같다.
+- 그래도 접근법은 비슷하다!
+
+**indexOf이란?**
+[indexOf Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
