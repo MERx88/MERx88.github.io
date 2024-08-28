@@ -255,3 +255,24 @@ function solution(emergency) {
 
 **slice란?**
 [slice Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
+
+## 2024_08_27
+
+### 진료순서 정하기
+
+코딩테스트 문제
+{: .label .label-blue }
+프로그래머스
+{: .label .label-purple }
+
+https://school.programmers.co.kr/learn/courses/30/lessons/120838
+
+모스부호를 문자로 바꾸는 문제
+
+**짚고 넘어갈 것**
+
+- 문제를 풀면서 큰문제는 없었는데 split이 생각이 안나서 반복문으로 띄어쓰기를 찾아서 나누어주며 풀었다.
+- 조금더 구동원리를 파악하며 풀자! -> 물론 변수를 잘못봐서 살짝 헤메긴했다
+
+**split이란?**
+[split Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)

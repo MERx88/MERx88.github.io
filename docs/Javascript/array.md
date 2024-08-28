@@ -72,7 +72,7 @@ points.sort((a, b) => b - a); //100-40은 양수이므로 자리가 바뀐다. �
 console.log(points); //[100,40,1]
 ```
 
-### Arrray.prototype.push
+## Arrray.prototype.push
 
 **특징**
 
@@ -90,7 +90,7 @@ console.log(result); //4
 console.log(arr); //[1,2,3,4]
 ```
 
-### Arrray.prototype.unshift
+## Arrray.prototype.unshift
 
 **특징**
 
@@ -107,7 +107,7 @@ console.log(result); //4
 console.log(arr); //[3,4,1,2]
 ```
 
-### Arrray.prototype.splice 함수
+## Arrray.prototype.splice 함수
 
 중간에 있는 요소를 변경할때 사용한다. 하지만 중간 요소 삭제, 중간에 요소 삽입등 다양한 작업이 가능한 메소드로 꽤나 유용한거 같다
 
@@ -137,7 +137,7 @@ console.log(arr); //[1,20,30,4]
 start만 넘겨주면 그이후로 싹다 삭제된다. `let result = arr.splice(1);` 라면 arr은 [1,2]가 된다.
 이외에 다양하게 응용가능하다.
 
-### Arrray.prototype.includes 함수
+## Arrray.prototype.includes 함수
 
 뭔가 다양하게 포함을 확인할 수 있을거 같았는데 생각보다 제한적이다.
 
@@ -159,7 +159,7 @@ arr.splice(4, -1); //true
 
 인덱스 -1을 주게되면 length-1 값부터 확인한다.
 
-### Arrray.prototype.slice 메서드
+## Arrray.prototype.slice 메서드
 
 인수로 전달된 범위의 요소들을 복사하여 배열로 반환한다
 
@@ -216,7 +216,7 @@ console.log(b); //[ 1, 2, 3, 4 ]
 
 원시값은 새로운 값을 할당할때 새로운 메모리를 확보하고 이에 할당한다. 기존에도 배열은 저렇게 할당을 진행되면 참조 주소만 복사가 되었다. 이것이 그대로 slice에도 진행된다고 보면된다. 분명 앝은복사를 진행하지만 원시값은 특성상 깊은복사를 진행한다.
 
-### Arrray.prototype.indexOf
+## Arrray.prototype.indexOf
 
 원본배열에서 인수로 전달된 요소를 검색하여 인덱스를 반환한다.
 
