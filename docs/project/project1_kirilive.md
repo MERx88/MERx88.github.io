@@ -1,11 +1,16 @@
 ---
 layout: default
-title: Project1
+title: Kirilive
 parent: Project
 nav_order: 1
 ---
 
 # 스텔라이브 키리누키 사이트
+
+개인 프로젝트
+{: .label .label-green }
+토이 프로젝트
+{: .label .label-blue }
 
 ## 2024_08_10
 
@@ -320,3 +325,5 @@ Accept: application/json
 ![좀 들어가라](../../assets/images/project1_draft.png)
 
 우선 여기까지...
+
+아 그리고 사이트 이름은 kirilive! 키리누키+스텔라이브 합성어 제일 좋은듯
