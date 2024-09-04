@@ -295,7 +295,7 @@ arr.indexOf(6); //-1
 
 1. acc를 주면 배열 요소들과 콜백함수를 통해 이것저것 하면서 순차적으로 진행되다가 결과값을 뱉는다
 2. 즉, 하나의 결과값을 반환한다.
-3.
+3. 초기값은 전달 안할수 있다 👉 _하지만 꼭 전달하자_
 
 😇 그냥 보는게 빠르다. 예제를 좀 보자
 
@@ -306,5 +306,64 @@ const sum = [1, 2, 3, 4].reduce(
   0
 );
 
-cpnsole.log(sum); //10
+console.log(sum); //10
+```
+
+```js
+//평균 구하기
+const avr = [1, 2, 3, 4].reduce((acc, cur, i, { length }) => {
+  return i === length - 1 ? (acc + cur) / length : acc + cur;
+}, 0);
+
+console.log(avr); //2.5
+```
+
+더 많은 예제가 있지만 요정도 적고 넘어가자
+
+## Arrray.prototype.replace
+
+초기값(accumulator)과 배열을 가지고 콜백함수를 통해 이것 저것 할수있는 신기한 녀석
+
+**특징**
+
+1. acc를 주면 배열 요소들과 콜백함수를 통해 이것저것 하면서 순차적으로 진행되다가 결과값을 뱉는다
+2. 즉, 하나의 결과값을 반환한다.
+3. 초기값은 전달 안할수 있다 👉 _하지만 꼭 전달하자_
+
+😇 그냥 보는게 빠르다. 예제를 좀 보자
+
+```js
+//1~4 누적값구하기
+const sum = [1, 2, 3, 4].reduce(
+  (accumulator, currentValue, index, array) => accumulator + currentValue,
+  0
+);
+
+console.log(sum); //10
+```
+
+```js
+//평균 구하기
+const avr = [1, 2, 3, 4].reduce((acc, cur, i, { length }) => {
+  return i === length - 1 ? (acc + cur) / length : acc + cur;
+}, 0);
+
+console.log(avr); //2.5
+```
+
+더 많은 예제가 있지만 요정도 적고 넘어가자
+
+## Arrray.prototype.replace
+
+첫번째 인수로받은 녀석을 검색하여 두번째 인수로 받은 녀석으로 치환하는 메소드
+
+**특징**
+
+1. 정규표현식과 문자열로 검색가능하다
+2. 만약 검색결과가 여러개일 경우 첫번쨰만 치환한다.
+3. 두번째 인수로 치환함수를 전달 할수있다. 👉 일단 그렇다는것만 알아두자
+
+```js
+const str = "hello world";
+str.replace("world", "lee"); //hello lee
 ```

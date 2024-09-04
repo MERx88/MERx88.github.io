@@ -342,4 +342,37 @@ function solution(my_string) {
 우선 reduce를 쓰는 사람이 많아서 이를 정리하고 넘어가려한다.
 
 - **reduce이란?**
-  [split Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
+  [reduce Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
+
+```js
+function solution(my_string) {
+  return my_string.split(/\D+/).reduce((acc, cur) => acc + Number(cur), 0);
+}
+```
+
+알고 보면 겁나 간단하다.
+
+1. split과 정규표현식을 통해 숫자만으로 이루어진 배열 반환 `\D+`는 숫자가 아닌 연속된 문자열 이라는 정규표현식이다.
+2. reduce를 통해 숫자로만 된 배열 다 더하기 이때 Number로 형변환
+
+**다른 사람 풀이 2**
+
+```js
+function solution(my_string) {
+  return my_string
+    .replace(/[A-z]/g, " ")
+    .split(" ")
+    .map((v) => v * 1)
+    .reduce((a, b) => a + b);
+}
+```
+
+- **replace란?**
+  [replace Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
+
+ex) 'ab12c2n'
+
+1. replace로 영어는 모두 ' '로 대체한다. -> ' 12 2 '
+2. split으로 모두 나눈다. -> ['','','12','',2,'']
+3. map으로 새로운 배열을 만드는데 문자열 배열을 숫자 배열로 바꾸는 과정이다.[0,0,12,0,2,0]
+4. reduce를 통해 모든 숫자를 더한다.
