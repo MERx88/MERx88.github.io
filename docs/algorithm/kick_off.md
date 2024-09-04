@@ -18,8 +18,7 @@ toc: true
 
 {: .no_toc .text-delta }
 
-1. TOC
-   {:toc}
+1. TOC{:toc}
 
 ---
 
