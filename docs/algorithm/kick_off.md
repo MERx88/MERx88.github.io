@@ -113,7 +113,7 @@ https://school.programmers.co.kr/learn/courses/30/lessons/120840
 
 문자열에서 숫자만 뽑아 오름차순으로 정렬하는 문제
 
-새롭게 안 사실
+**새롭게 안 사실**
 
 - 문자앞에 +를 붙이면 타입이 number로 바뀐다 이런식으로 '1' -> 1 좀더 확장하면 산술연산자가 붙으면 number로 강제 형변환이 되는거 같다
 
@@ -276,3 +276,70 @@ https://school.programmers.co.kr/learn/courses/30/lessons/120838
 
 **split이란?**
 [split Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
+
+## 2024_09_01
+
+### 숨어있는 숫자의 덧셈
+
+코딩테스트 문제
+{: .label .label-blue }
+프로그래머스
+{: .label .label-purple }
+
+https://school.programmers.co.kr/learn/courses/30/lessons/120864
+
+문자열에서 숫자를 찾아 더하고 이를 반환하는 문제
+
+{: .note }
+한줄로 풀고 싶어서 내가 알고있는 배열 메소드 이것저것 생각하다가 시간끌다가 도저히 안되겠다 싶어서 하드하게 풀어버렸다... 근데 다른 사람들은 이걸 어떻게 한줄로 푸는거지 했는데 아직 내가 생각하지 못하는 메소드가 너무 나도 많고 아직 실력이 부족하다.
+
+**내 코드**
+
+```js
+function solution(my_string) {
+  const num_arr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+  let fin = [];
+  let answer = 0;
+
+  for (i = 0; i < my_string.length; i++) {
+    let arr = [];
+
+    while (num_arr.includes(my_string[i])) {
+      arr.push(my_string[i]);
+      i++;
+    }
+
+    if (arr.length) {
+      fin.push(arr);
+    }
+  }
+
+  for (i = 0; i < fin.length; i++) {
+    answer += +fin[i].join("");
+  }
+  return answer;
+}
+```
+
+**내 생각**
+
+- 이 문제에서 중요하게 여겨할건 자연수가 이어져있으면 하나의 자연수라는거다 예를들어 "a1nd23fg" 이라면 여기서 자연수는 1과 23 이다 즉 합하면 24이다.
+- 그렇다면 배열을 돌다가 숫자를 만나면 배열에 저장해두고 이걸 최종배열에 저장해두면 (이중배열) 숫자는 걸러진다. -> n^2
+- 그러고 이걸 다시 반복문을 돌아 더하면? -> 완료
+
+**짚고 넘어갈거**
+
+- 문자앞에 +를 붙여야 숫자로 변한다 명심하자 유용하다
+
+**문제점**
+
+- 정규표현식을 한번 봐야겠다 솔직히 안쓰고 풀고싶은데 알면 한줄로 푸는데 유용해진다.
+- 공간복잡도도 최대한 줄여바야겠다.
+- 아직 모르는 베열 메소드가 많다 -> 몇개 정리하면서 다른 사람 풀이를 보자
+
+**다른 사람 풀이**
+
+우선 reduce를 쓰는 사람이 많아서 이를 정리하고 넘어가려한다.
+
+- **reduce이란?**
+  [split Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
