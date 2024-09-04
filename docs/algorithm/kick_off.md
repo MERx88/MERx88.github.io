@@ -19,7 +19,7 @@ toc: true
 {: .no_toc .text-delta }
 
 1. TOC
-   {{ site.table_of_contents }}
+   {:toc}
 
 ---
 
