@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Test
 nav_order: 6
 ---
@@ -9,10 +10,8 @@ nav_order: 6
 
 ## Table of contents
 
-{: .no_toc .text-delta }
-
-1. TOC
-   {:toc}
+[1.개발을 하고 싶어요](#개발을-하고-싶어요)
+[2.코딩을 잘하고 싶어요](#coding을-잘하고-싶어요)
 
 ---
 
