@@ -9,10 +9,8 @@ nav_order: 2
 
 ## Table of contents
 
-{: .no_toc .text-delta }
-
-1. TOC
-   {:toc}
+[1.Array.from](#array.from)
+[2.Arrray.prototype.sort](#arrray.prototype.sort)
 
 ---
 
