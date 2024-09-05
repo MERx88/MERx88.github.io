@@ -1,6 +1,6 @@
 ---
 title: Customization
-nav_order: 3
+nav_order: 6
 ---
 
 # Customization
@@ -107,9 +107,10 @@ color_scheme: foo
 If you want to be able to change the scheme dynamically, for example via javascript, just add a file `assets/css/just-the-docs-foo.scss` (replace `foo` by your scheme name)
 with the following content:
 
-{% raw %}
+## {% raw %}
+
 ---
----
+
 {% include css/just-the-docs.scss.liquid color_scheme="foo" %}
 {% endraw %}
 
