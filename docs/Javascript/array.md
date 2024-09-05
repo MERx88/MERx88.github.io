@@ -13,8 +13,14 @@ nav_order: 2
 - [Arrray.prototype.sort](#arrrayprototypesort)
 - [Arrray.prototype.push](#arrrayprototypepush)
 - [Arrray.prototype.splice](#arrrayprototypesplice)
-  - [Array.prototype.unshift](#arrrayprototypeunshift)
-- [Arrrayprototypeincludes](#arrrayprototypeincludes)
+- [Array.prototype.unshift](#arrrayprototypeunshift)
+- [Arrray.prototype.includes](#arrrayprototypeincludes)
+- [Arrray.prototype.slice](#arrrayprototypeslice)
+- [Arrray.prototype.indexOf](#arrrayprototypeindexOf)
+- [Arrray.prototype.forEach](#arrrayprototypeforEach)
+- [Arrray.prototype.map](#arrrayprototypemap)
+- [Arrray.prototype.reduce](#arrrayprototypereduce)
+- [Arrray.prototype.replace](#arrrayprototypereplace)
 
 ---
 
@@ -170,7 +176,7 @@ arr.splice(4, -1); //true
 
 인덱스 -1을 주게되면 length-1 값부터 확인한다.
 
-## Arrray.prototype.slice 메서드
+## Arrray.prototype.slice
 
 인수로 전달된 범위의 요소들을 복사하여 배열로 반환한다
 
