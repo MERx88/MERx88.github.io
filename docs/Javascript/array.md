@@ -9,10 +9,15 @@ nav_order: 2
 
 ## Table of contents
 
-- TOC
-  {:toc}
+- [Array.from](#array.from)
 
-[1.Array.from](#array.from)
+- [Arrray.prototype.sort](#arrray.prototype.sort)
+
+[1. Arrray.prototype.push](#arrray.prototype.push)
+
+1. [Arrray.prototype.splice](#arrray.prototype.splice)
+
+2. [Array.prototype.unshift](#arrray.prototype.unshift)
 
 [2.Arrray.prototype.sort](#arrray.prototype.sort)
 
@@ -118,7 +123,7 @@ console.log(result); //4
 console.log(arr); //[3,4,1,2]
 ```
 
-## Arrray.prototype.splice 함수
+## Arrray.prototype.splice
 
 중간에 있는 요소를 변경할때 사용한다. 하지만 중간 요소 삭제, 중간에 요소 삽입등 다양한 작업이 가능한 메소드로 꽤나 유용한거 같다
 
