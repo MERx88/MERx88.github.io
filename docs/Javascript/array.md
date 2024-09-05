@@ -9,17 +9,12 @@ nav_order: 2
 
 ## Table of contents
 
-- [Array.from](#array.from)
-
-- [Arrray.prototype.sort](#arrray.prototype.sort)
-
-[1. Arrray.prototype.push](#arrray.prototype.push)
-
-1. [Arrray.prototype.splice](#arrray.prototype.splice)
-
-2. [Array.prototype.unshift](#arrray.prototype.unshift)
-
-[2.Arrray.prototype.sort](#arrray.prototype.sort)
+- [Array.from](#arrayfrom)
+- [Arrray.prototype.sort](#arrrayprototypesort)
+- [Arrray.prototype.push](#arrrayprototypepush)
+- [Arrray.prototype.splice](#arrrayprototypesplice)
+  - [Array.prototype.unshift](#arrrayprototypeunshift)
+- [Arrrayprototypeincludes](#arrrayprototypeincludes)
 
 ---
 
@@ -153,7 +148,7 @@ console.log(arr); //[1,20,30,4]
 start만 넘겨주면 그이후로 싹다 삭제된다. `let result = arr.splice(1);` 라면 arr은 [1,2]가 된다.
 이외에 다양하게 응용가능하다.
 
-## Arrray.prototype.includes 함수
+## Arrray.prototype.includes
 
 뭔가 다양하게 포함을 확인할 수 있을거 같았는데 생각보다 제한적이다.
 
