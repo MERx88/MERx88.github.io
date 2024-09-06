@@ -7,6 +7,8 @@ nav_order: 2
 
 # Array
 
+배열인척하는 미친 객체 녀석의 드럽게 많은 배열 메소드 정리 페이지
+
 ## Table of contents
 
 - [Array.from](#arrayfrom)
