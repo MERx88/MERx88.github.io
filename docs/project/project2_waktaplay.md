@@ -24,7 +24,11 @@ nav_order: 2
 
 ## 2024_08_30
 
-### Outlet 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴 이거 리액트로 빼야할듯?
+### 마이그레이션...하 던 중...
+
+outlet을 프로젝트에서 쓰길래 정리했당 🤓 하면서 라우팅에 대한 공부도 다시했다.
+
+[Outlet Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
 
 ## 2024_09_07
 
@@ -55,4 +59,41 @@ Progress Indicator와 관련된 주요 지침은 다음과 같습니다.
 
 ### Suspense 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴 이거 리액트로 빼야할듯?
 
-### 무한 스크롤 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴
+### 무한 스크롤 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴 근데 이거 구현 안할듯
+
+### 데이터 맛있게 불러와 보겠습니다. 근데 이제 FE 최적화를 곁들인 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴
+
+<img src="../../assets/images/Choimeme.png" width="360px">
+
+useEffect 로 데이터를 불러오는건 당연하고... 문제는 흠 리렌더링에 대하여 인데 총 네가지 데이터가 있다.
+
+- 실시간 탑 100
+- 일간 차트
+- 주간 차트
+- 누적 차트
+
+흠 페이지는 흠 우선 가장 상위 페이지인 Charts.tsx 그리고 차트 엘리먼트를 렌더링 하기 위한 ChartItem.tsx 정도 있다. (추가로 로딩을 위한 skeleton.tsx 까지)
+
+```zsh
+pages/charts
+├── ChartItem.tsx
+└── Charts.tsx
+```
+
+처음에는 그냥 Charts에 api 때려박고 데이터를 ChartItem 에다가 내려서 렌더링 하려고 했는데 생각해보니... 리프레쉬 버튼이 있기 때문에 실시간 정도는 빼야하지 않을까 생각했다. 근데 또 생각해보니 post 도 꽤 다 있어서 걍 다빼기로 그리고 헤더도 charts에 있었는데 이것도 뺴야겠다 체크 박스 전체선택이있어서...
+
+```zsh
+pages/charts
+├── ChartDaily.tsx
+├── ChartItem.tsx
+├── ChartRealTime.tsx
+├── ChartTotal.tsx
+├── ChartWeekly.tsx
+└── Charts.tsx
+```
+
+겁나 의식의 흐름으로 적었는데 그냥 get 호출은 각 차트 페이지에서 진행하는걸로... 나중에 post 호출 적용하면 바뀔지도? 우선 예상 정도 해서 파일 구조 짜놓고 다음기회에 보자...
+
+## 2024_09_09
+
+### 새로운 IDE 이름은 Cursor로 하겠습니다. 근데 이제 VSCode를 곁들인 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴
