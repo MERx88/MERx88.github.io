@@ -7,34 +7,35 @@ nav_order: 2
 
 # Waktaplay (왁타버스 뮤직플레이 어플리케이션)
 
+![wz]('https://cafe.naver.com/common/storyphoto/viewer.html?src=https%3A%2F%2Fcafeptthumb-phinf.pstatic.net%2FMjAyNDA5MDdfMTMz%2FMDAxNzI1NjUwMjYyOTQx.BPJ1q6LxYjHabOeNsvxy_zjtAlnFFe8E-i-Qrzma0Owg.YUhowYtNo60EgNI6hQv_gsz-zPAbumWhSWxQYkU_wMEg.PNG%2F%25EC%259A%25B0%25EC%2599%2581%25EA%25B5%25B3Z-%25EC%25B1%2584%25EB%2584%2590%25EC%2595%2584%25ED%258A%25B8.png%3Ftype%3Dw1600')
+
 요즘 우왁굳 개발팀(비영리 단체)에 합류해서 팀 프로젝트를 진행중이다. 이에 관한 일지 및 문제사항을 업로드 할 예정이다.
 
 ---
 
 ## Table of contents
 
-- [2024_08_30](#2024_08_30)
-  - [Outlet](#Outlet)
 - [2024_09_07](#2024_09_07)
+
   - [스켈레톤에 대하여](#스켈레톤에-대하여)
-  - [Suspense](#Suspense)
-  - [무한 스크롤](#무한-스크롤)
+
+- [2024_09_09](#2024_09_09)
+
+  - [useEffect 데이터 호출. 근데 이제 2번 중복 호출을 곁들인](#useeffect-데이터-호출-근데-이제-2번-중복-호출을-곁들인)
+
+- [2024_09_10](#2024_09_10)
+  - [useState와 상태관리 라이브러리 어떤게 언제 어떻게 유리함? 그리고 나만의 기준은?](#usestate와-상태관리-라이브러리-어떤게-언제-어떻게-유리함-그리고-나만의-기준은)
+  - [checkbox 선택 지멋대로 쳐대는 문제 해결](#checkbox-선택-지멋대로-쳐대는-문제-해결)
+- [2024_09_11](#2024_09_11)
+  - [v6.4 React Router로 동적 라우팅 해보기](#v64-react-router로-동적-라우팅-해보기)
 
 ---
-
-## 2024_08_30
-
-### 마이그레이션...하 던 중...
-
-outlet을 프로젝트에서 쓰길래 정리했당 🤓 하면서 라우팅에 대한 공부도 다시했다.
-
-[Outlet Link]({https://merx88.github.io/docs/Javascript/mechanism/##값의-할당}/)
 
 ## 2024_09_07
 
 ### 스켈레톤에 대하여
 
-스켈레톤의 장ㅈ점
+스켈레톤의 장점
 
 1. 로딩시간이 비교적 짧게 느껴진다.
 
@@ -64,43 +65,6 @@ Progress Indicator와 관련된 주요 지침은 다음과 같습니다.
 응답속도가 빠른 앱이면 오히려 스켈레톤은 걸리적 거린다. 응답속도에 따라 정해보자!
 
 음 한 위에서 말한대로 1초 이상이면 스켈레톤과 같은 Progress Indicator 쓰자
-
-### Suspense 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴 이거 리액트로 빼야할듯?
-
-### 무한 스크롤 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴 근데 이거 구현 안할듯
-
-### 데이터 맛있게 불러와 보겠습니다. 근데 이제 FE 최적화를 곁들인 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴
-
-<img src="../../assets/images/Choimeme.png" width="360px">
-
-useEffect 로 데이터를 불러오는건 당연하고... 문제는 흠 리렌더링에 대하여 인데 총 네가지 데이터가 있다.
-
-- 실시간 탑 100
-- 일간 차트
-- 주간 차트
-- 누적 차트
-
-흠 페이지는 흠 우선 가장 상위 페이지인 Charts.tsx 그리고 차트 엘리먼트를 렌더링 하기 위한 ChartItem.tsx 정도 있다. (추가로 로딩을 위한 skeleton.tsx 까지)
-
-```zsh
-pages/charts
-├── ChartItem.tsx
-└── Charts.tsx
-```
-
-처음에는 그냥 Charts에 api 때려박고 데이터를 ChartItem 에다가 내려서 렌더링 하려고 했는데 생각해보니... 리프레쉬 버튼이 있기 때문에 실시간 정도는 빼야하지 않을까 생각했다. 근데 또 생각해보니 post 도 꽤 다 있어서 걍 다빼기로 그리고 헤더도 charts에 있었는데 이것도 뺴야겠다 체크 박스 전체선택이있어서...
-
-```zsh
-pages/charts
-├── ChartDaily.tsx
-├── ChartItem.tsx
-├── ChartRealTime.tsx
-├── ChartTotal.tsx
-├── ChartWeekly.tsx
-└── Charts.tsx
-```
-
-겁나 의식의 흐름으로 적었는데 그냥 get 호출은 각 차트 페이지에서 진행하는걸로... 나중에 post 호출 적용하면 바뀔지도? 우선 예상 정도 해서 파일 구조 짜놓고 다음기회에 보자...
 
 ## 2024_09_09
 
@@ -160,19 +124,6 @@ DRY : "Don't Repeat Yourself" & DX : "Developer Experience"
 1. 비즈니스 로직 처럼 복잡, 이곳 저곳에서 사용(페이지 사이 정도의 거리!), 랜더링이 정말 빈번하게 일어나는 경우(게임 같은거)? -> _전역상태관리_
 2. 1번의 경우를 제외한 거의 모든 경우 -> _useState_
 
-### Redux -> Recoil -> 그리고 처음 보는 Zustand 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴
-
-![zustand](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcA3Yh0%2FbtrD6yxMv3Q%2FkghmSTTbyQQ1GFIeWJn6l1%2Fimg.jpg)
-
-와 모르던 사실 리코일 번들 사이즈 왤캐 크냐 23.5kb네... zustand 익숙해지면 zustand 만 써야겠당 1.1kb 많이 작다.
-
-### hook vs util 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴
-
-{: .hilight }
-🧐 중복되는 로직을 빼놓는건 당연한 개발자의 숙명이다. 근데 보통 utils, hooks 파일 두가지가 있는데 어떤 기준으로 뺼까?
-
-### 새로운 IDE 이름은 Cursor로 하겠습니다. 근데 이제 VSCode를 곁들인 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴
-
 ### checkbox 선택 지멋대로 쳐대는 문제 해결
 
 아직 모르는게 너무 많다고 느꼈다
@@ -185,11 +136,11 @@ checkbox ui를 고치면서 checkbox 속성들을 다시 확인했다.
 
 id='checkboxId'로 통일이 되어있어서 다른걸 눌러도 0번만 선택되었다. 걍 개쳐멍청하네
 
-### checkbox 다중 선택 만들기
+## 2024_09_11
 
 ### v6.4 React Router로 동적 라우팅 해보기
 
-![router](image-2.png)
+![router]('https://global.discourse-cdn.com/business5/uploads/apollographql/optimized/2X/c/c07a70726064b8778be1f2ba6149db9c0a582795_2_1024x535.png')
 
 라우팅에 대해 솔직히 말하자면 아주 잘 알고있다고는 못했다. 하지만 이번에 프로젝트에서 charts 부분을 맡으면서 라우팅을 제대로 해보았다. 원래 파일 구조는 이러했다.
 
@@ -309,7 +260,7 @@ export const router = createBrowserRouter([
 
 router 객체는 createBrowserRouter이라는 함수를 통해 만들수 있으며 위에서 중첩으로 된 Routes 들을 위와 같이 작성할수있다. 중첨된것은 children 이라는 key에 밸류로 주어 해결가능해졌다. 그리고 나머지 key 밸류들은 기존과 똑같이 사용가능하다. 가장 상단에 <App>으로 지정되어있기 때문에 여기 있는 Outlet에 routerConfig의 모든 라우팅 값들이 빠져나오면서 <App>의 레이아웃 디자인은 유지하면서 중첩 라우팅 수행이 가능하다.
 
-🧐 그러면 동적라우팅은...?
+_🧐 그러면 동적라우팅은...?_
 
 동적라우팅도 똑같다
 
@@ -376,3 +327,22 @@ pages/charts
 ```
 
 파일수를 확줄일수있게 되었고 중복 코드는 많이 사라졌다 👍
+
+---
+
+## 작성해야하는 녀석들
+
+<!-- ### 무한 스크롤 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴 근데 이거 구현 안할듯
+
+### checkbox 다중 선택 만들기
+
+### hook vs util 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴
+
+{: .hilight }
+🧐 중복되는 로직을 빼놓는건 당연한 개발자의 숙명이다. 근데 보통 utils, hooks 파일 두가지가 있는데 어떤 기준으로 뺼까?
+
+### Redux -> Recoil -> 그리고 처음 보는 Zustand 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴
+
+![zustand](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcA3Yh0%2FbtrD6yxMv3Q%2FkghmSTTbyQQ1GFIeWJn6l1%2Fimg.jpg)
+
+와 모르던 사실 리코일 번들 사이즈 왤캐 크냐 23.5kb네... zustand 익숙해지면 zustand 만 써야겠당 1.1kb 많이 작다. -->
