@@ -7,6 +7,8 @@ nav_order: 2
 
 # Array
 
+![elena](image.png)
+
 배열인척하는 미친 객체 녀석의 드럽게 많은 배열 메소드 정리 페이지
 
 ## Table of contents
@@ -71,7 +73,7 @@ arr.sort((next, prev) => next - prev);
 
 위와같이 비교함수를 넘겨 주면
 
-next - prev가 0이거나 양수면 변경하사항이 없지만 음수가 되면 자리가 바뀐다.
+next - prev가 0이거나 양수면 변경할 사항이 없지만 음수가 되면 자리가 바뀐다.
 
 으로 평가하여 배열을 정렬하게 된다.
 

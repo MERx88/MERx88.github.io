@@ -7,7 +7,7 @@ nav_order: 2
 
 # Waktaplay (왁타버스 뮤직플레이 어플리케이션)
 
-![wz]('https://cafe.naver.com/common/storyphoto/viewer.html?src=https%3A%2F%2Fcafeptthumb-phinf.pstatic.net%2FMjAyNDA5MDdfMTMz%2FMDAxNzI1NjUwMjYyOTQx.BPJ1q6LxYjHabOeNsvxy_zjtAlnFFe8E-i-Qrzma0Owg.YUhowYtNo60EgNI6hQv_gsz-zPAbumWhSWxQYkU_wMEg.PNG%2F%25EC%259A%25B0%25EC%2599%2581%25EA%25B5%25B3Z-%25EC%25B1%2584%25EB%2584%2590%25EC%2595%2584%25ED%258A%25B8.png%3Ftype%3Dw1600')
+![woowak z](image-3.png)
 
 요즘 우왁굳 개발팀(비영리 단체)에 합류해서 팀 프로젝트를 진행중이다. 이에 관한 일지 및 문제사항을 업로드 할 예정이다.
 
