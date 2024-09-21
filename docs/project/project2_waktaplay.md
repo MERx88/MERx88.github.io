@@ -328,7 +328,39 @@ pages/charts
 
 파일수를 확줄일수있게 되었고 중복 코드는 많이 사라졌다 👍
 
----
+##2024_09_20
+
+### checkBox 전체선택 구현하기~
+
+우선 배열로 체크박스 관리하면 될듯
+
+배열 요소 확인해서 체크박스 요소에서 하나라도 빠지면 전체해제
+
+근데 Outlet에 어떻게 props를 내리지...했는데 useOutletContext가 있었다
+
+[useOutletContext Link](https://tech.kakaopay.com/post/skeleton-ui-idea/)
+
+근데 charts.tsx가 아닌 chart.tsx 에서 부터 props를 내려주면 되어서 그냥 안쓰기로 했다. 하하...(파일 구조는 다음과 같다.)
+
+```zsh
+src/renderer/pages/charts
+    #각 주기별 차트
+├── Chart.tsx
+    #차트 찐 내용물의 헤더 녀석
+├── ChartHeader.tsx
+    #차트 찐 내용물의 아이템 엘리먼트
+├── ChartItem.tsx
+    #차트 페이지
+└── Charts.tsx
+```
+
+아까도 말했듯이 체크박스로 선택된 녀석들의 아이디를 배열로 저장하고 요소의 갯수에 따라서 전체 선택도 하고 해제도 하고 하면 된다고 생각했다.
+
+우선 이기능이 왜 있느냐
+
+![actionrow]('docs/project/actionRow.png')
+
+체크박스 선택하면 셔플링 재생 등등 actionrow를 조작하기 위해 체크박스 기능을 구현해야한다.
 
 ## 작성해야하는 녀석들
 
