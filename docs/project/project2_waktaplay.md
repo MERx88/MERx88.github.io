@@ -330,7 +330,7 @@ pages/charts
 
 ##2024_09_20
 
-### checkBox 전체선택 구현하기~
+### ✅🤯✅🤯✅🤯✅🤯✅🤯 checkBox 전체선택 구현하기~ 🤯✅🤯✅🤯✅🤯✅🤯✅
 
 우선 배열로 체크박스 관리하면 될듯
 
@@ -362,7 +362,209 @@ src/renderer/pages/charts
 
 체크박스 선택하면 셔플링 재생 등등 actionrow를 조작하기 위해 체크박스 기능을 구현해야한다.
 
-## 작성해야하는 녀석들
+- ui로 몇곡 선택되었는지 보여줘야한다.
+- 그리고 재생이나 이런 처리를 서버에게 보내주어야한다. 근데 아직 이 처리는 안하기 때문에 우선 염두해두고 개발해야한다.
+
+배열로 구현할거기 때문에 우선 state를 배열로 진행하고 이 길이를 ui로 보내주면 된다. 그리고 state 배열로 모아둔 아이디들을 서버에 보낼때 사용하면 될거 같다. 뭐 우선 이정도 생각하고 체크박스 구현을 본격적으로 시작해보자
+
+여러 케이스가 있다. 일단 크게 두가지 케이스는 전체선택 체크박스, 개별선택 체크박스 두가지 케이스로 나눌 수있다. 그리고 간접조작이랑 직접조작 두가지로 나눌 수도 있다. (간접조작은 개별선택과 전체선택이 서로 영향을 미치는 경우를 말한다.)
+
+전체선택 체크박스
+
+- 직접조작 (개별선택 간접과 동일)
+
+  - 전체선택 true -> 개별선택 100개 모두 true -> state에 모든 아이템 추가 -> 총 100개
+  - 전체선택 false -> 개별선택 100개 모두 false -> state에 모든 아이템 제거 -> 0개로 초기화
+
+- 간접조작
+
+  - 개별선택 100개중 1개 이상 false -> 전체선택 false -> state에 해당 개별 선택 제거
+  - 개별선택 모두 100개 true -> 전체선택 true -> state에 100개 모두 들어있어야함
+
+개별선택 체크박스
+
+- 직접조작
+
+  - 개별선택 1개 true -> state에 해당 아이템 추가
+  - 개별선택 1개 false -> state에 해당 아이템 삭제
+
+- 간접조작 (전체선택 직접과 동일)
+
+  - 전체선택 true -> 개별선택 100개 모두 true -> state에 모든 아이템 추가 -> 총 100개
+  - 전체선택 false -> 개별선택 100개 모두 false -> state에 모든 아이템 제거 -> 0개로 초기화
+
+우선 위의 조건들을 만족하게 함수를 짜야한다. 껄껄
+
+사실 내가 checkbox ui를 잘못 만들어서 그냥 잘못 만들어진대로 useEffect를 써서 만들려고 했지만 isChecked라는 state와 배열 state가 변할때 마다 리렌더링으로 useEffect로 할려고 했지만 state끼리 꼬이는 문제가 생기고 가장 큰 문제는 가독성이었다. 어쩔수없이 그냥 ui 를 고치기로 하고 다시 함수를 만들어 보았다. 아 그리고 useRef로 해보려고 했는데 아직 숙련도가 높지 않아서 어렵기도 하고 이를 ui 에 반영하려면 또 state에 담아야 리렌더링으로 ui가 업데이트 된다. 그리고 해보다가 안 사실인데 useRef를 useEffect 의존성 배열에 넣어도 이로인해 useEffect가 다시 실행되지 않는것을 확인 할수있었다. 물론 이제는 useEffect를 사용해서 전적으로 체크박스를 조작하지는 않을거지만 우선 이렇게 한번 시행착오를 겪었다라는 것을 남기고 싶었다.
+
+사실 이제부터 진짜 구현이다.
+
+내 chart 컴포넌트는 두개의 chartItem 과 chartHeader 가 있다. chartItem 은 당연히 map으로 응답 받아온 데이터를 뿌려주고 있다. 다음과 같은 구조를 가지고 있다.
+
+```js
+//Chart.tsx
+<Container>
+  <ChartHeader />
+  {data.map((song, index) => (
+    <ChartItem />
+  ))}
+</Container>
+```
+
+우리는 앞서서 header와 아이템이 서로 어떻게 영향을 미친다는 것을 알수있었고 이를 구현하려면 아이디를 관리하는 데이터셋 state를 가장 상단에서 불러와서 header와 item 들에게 내려주면서 데이터셋을 업데이트 해야한다고 생각했다. 그리고 actionRows에 몇개가 선택되었는지 보여주어야하기 때문에 해당 컴포넌트에서 불러오면 최적이라고 생각했다.
+
+그리고 좀 중요한건데 계속 배열로 진행하려고 했는데 배열은 중복을 허용하는 특성이 있어서 Set을 사용해서 중복을 없애기로 했다. 그리고 이를 결국 스프레드로 배열에 풀면 배열의 특성도 이용할수있기 때문에 중복 금지를 우선 조건으로 Set으로 진행했다.
+
+```js
+//Chart.tsx
+const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set())
+
+<Container>
+  <ChartHeader checkedItems={checkedItems} setCheckedItems={setCheckedItems}/>
+  {data.map((song, index) => (
+    <ChartItem
+      checkedItems={checkedItems}
+      setCheckedItems={setCheckedItems}
+    />
+  ))}
+  <ActionRows checkedItems={checkedItems} />
+</Container>
+```
+
+우선 개별선택부터 구현해보았다. 우선 직접 조작은 다음과 같았다.
+
+```md
+- 직접조작
+
+  1. 개별선택 1개 true -> state에 해당 아이템 추가
+  2. 개별선택 1개 false -> state에 해당 아이템 삭제
+```
+
+그렇다면 input의 type을 checkbox로 설정하고 해당 체크박스가 체크 유무가 바뀔때마다 값을 확인하고 checkedItems에 해당 id를 추가 하기로했다. 이렇게 1번 직접조작을 구현할수있고 2번은 1번이 아닌경우 즉, 체크가 안된경우 해당 id를 checkedItems에서 제거 하면된다. 이걸 코드로 그대로 구현하면 다음과 같이 된다.
+
+중요한 사실 이때 사실 event.target.checked로 값을 가져올수있다 하지만 앞으로 해당 dom을 참조해서 사용해야할일이 한번 더 남았으므로 useRef를 통해 dom을 참조하기로했다. 통일성도 있고 어짜피 ref를 써야만 하는 상황이고 참조 하면 메모리 먹고 있을텐데 말이다.
+
+```js
+//ChartItem.tsx
+const checkBoxRef = useRef(null);
+
+//직접 조작
+function handleCheckbox() {
+  if (checkBoxRef.current.checked) {
+    setCheckedItems((prev) => new Set(prev).add(song.id));
+  } else {
+    setCheckedItems((prev) => {
+      const newSet = new Set(prev);
+      newSet.delete(song.id);
+      return newSet;
+    });
+  }
+}
+
+<input
+  type="checkbox"
+  id={song.id}
+  name="song"
+  ref={checkBoxRef}
+  value={song.id}
+  onChange={handleCheckbox}
+/>;
+```
+
+조금은 덜 직관적인 간접 조작은 다음과 같았다.
+
+```md
+- 간접조작 (전체선택 직접과 동일)
+
+  1. 전체선택 true -> 개별선택 100개 모두 true -> state에 모든 아이템 추가 -> 총 100개
+  2. 전체선택 false -> 개별선택 100개 모두 false -> state에 모든 아이템 제거 -> 0개로 초기화
+```
+
+만약 전체선택에서 체크박스를 선택하면 위와 같은 일이 일어나고 개별선택에서는 이에 반응해야하기에 useEffect로 반응을 감지하고 진행하는게 맞을것이다. 사실 간단하다 checkedItems를 의존성 배열에 넣고 이가 바뀔때마다 내가 포함되는지 확인하면된다 포함되면 ref로 참조해둔 checkBox 값을 스리슬쩍 체크로 바꾸면된다.
+
+```js
+//ChartItem.tsx
+const checkBoxRef = useRef(null)
+
+//직접 조작
+function handleCheckbox() {
+  if (checkBoxRef.current.checked) {
+    setCheckedItems(prev => new Set(prev).add(song.id))
+  } else {
+    setCheckedItems(prev => {
+      const newSet = new Set(prev)
+      newSet.delete(song.id)
+      return newSet
+    })
+  }
+}
+
+//간접 조작
+useEffect(() => {
+  checkBoxRef.current.checked = checkedItems.has(song.id)
+}, [checkedItems])
+
+
+<input type="checkbox" id={song.id} name="song" ref={checkBoxRef} value={song.id} onChange={handleCheckbox} />
+```
+
+개별선택은 완료되었다 👏👏
+
+전체선택도 흐름은 비슷하다 빠르게 가보자 🏃
+
+```md
+- 직접조작 (개별선택 간접과 동일)
+
+  1. 전체선택 true -> 개별선택 100개 모두 true -> state에 모든 아이템 추가 -> 총 100개
+  2. 전체선택 false -> 개별선택 100개 모두 false -> state에 모든 아이템 제거 -> 0개로 초기화
+```
+
+개별조작처럼 선택되면 onChange로 확인하고 api로 받아온 데이터의 모든 id를 checkedItems에 추가하면 된다. 당연히 체크 해제되면 다 지우면 된다.
+
+=> 그러면 아까 설정해둔 개별 선택 useEffect가 반응해서 자기 아이디가 포함되어있는지 확인하고 있다면 체크가 될것이다!
+
+```md
+- 간접조작
+
+  - 개별선택 100개중 1개 이상 false -> 전체선택 false -> state에 해당 개별 선택 제거
+  - 개별선택 모두 100개 true -> 전체선택 true -> state에 100개 모두 들어있어야함
+```
+
+간접조작은 100개의 데이터가 체크가 되어있다면 전체선택 체크박스돠 체크가 되어야한다. 물론 99개만 되어도 해제되어야한다. 이것도 useEffect로 checkedItems을 확인하고 사이즈를 체크한후 ref로 참조되어있는 전체선택 체크박스를 스리슬쩍 바꾸면 된다.
+
+```js
+const allCheckBoxRef = useRef(null)
+
+function handleAllCheckbox() {
+  if (allCheckBoxRef.current.checked && data) {
+    setCheckedItems(new Set(data.map(el => el.id)))
+  } else {
+    setCheckedItems(new Set())
+  }
+}
+
+useEffect(() => {
+  allCheckBoxRef.current.checked = checkedItems.size >= 100
+  }, [checkedItems])
+
+<input
+  type="checkbox"
+  id="allCheckBox"
+  name="song"
+  value="allCheckBox"
+  ref={allCheckBoxRef}
+  onChange={handleAllCheckbox}
+/>
+```
+
+👏👏👏👏👏👏 이렇게 모든 체크박스 완료 👏👏👏👏👏👏
+
+사실 처음에는 살짝 막막하고 오기 부리다가 삽질을 쬐금했는데 이런저런 기능을 써볼수있는 feature여서 나의 fe 지식이 조금은 더 확장 된거같은 기분,,,
+
+[useRef Link](https://tech.kakaopay.com/post/skeleton-ui-idea/)
+[checkbox Link](https://tech.kakaopay.com/post/skeleton-ui-idea/)
+
+##🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧작성해야하는 녀석들🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
 
 <!-- ### 무한 스크롤 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴 근데 이거 구현 안할듯
 
@@ -378,3 +580,7 @@ src/renderer/pages/charts
 ![zustand](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcA3Yh0%2FbtrD6yxMv3Q%2FkghmSTTbyQQ1GFIeWJn6l1%2Fimg.jpg)
 
 와 모르던 사실 리코일 번들 사이즈 왤캐 크냐 23.5kb네... zustand 익숙해지면 zustand 만 써야겠당 1.1kb 많이 작다. -->
+
+```
+
+```
