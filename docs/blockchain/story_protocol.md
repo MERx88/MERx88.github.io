@@ -123,6 +123,9 @@ IP Account의 기능 을 확장 할수있는 스마트 컨트랙트 모듈
 
 실제 오프체인 법적 계약 이고 이걸 온체인 IP Asset에 첨부가능
 
-## story 개발 with React+Wagmi+Rainbowkit
+## 🚧🚧 story 개발 with React+Wagmi+Rainbowkit 🚧🚧
+
+🚧 ...작성중... 🚧
+{: .label .label-yellow }
 
 wagmi는 졸라 유명한 프론트엔드 라이브러리 이다. 리액트 훅을 드럽게 많이 지원해준다. 존나 고마운 녀석

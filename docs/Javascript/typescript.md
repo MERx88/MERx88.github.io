@@ -2,48 +2,14 @@
 layout: default
 title: Typescript
 parent: Javascript
-nav_order: 5
+nav_order: 6
 ---
 
 # Typescript
 
+![typescript](image-1.png)
+
 자바스크립트의 수퍼셋 타입스크립트 타입이 있어서 더 좋은거라고...? 맞긴한데 타입스크립트는 C보다도 더러운 느낌이 든다. 그냥 그렇다구
-
-## 2024_09_15
-
-### FormData 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴 이건 사실 자바스크립트 봐야할듯 책보고 익히자
-
-자바스크립트 단에서 폼데이터를 다루는 객체라고 한다. 흠 왜 이걸 모르고있었지 싶다.
-
-key value 값으로 추가해준다!
-
-```js
-formData.append(name, value);
-// - form의 name 과 value 를 필드의 추가
-// - input의 name 속성과 value 입력값 역할을 한다고 생각 하면 된다.
-
-formData.append(name, blob, fileName);
-// - input 의 type 이 'file' 인 경우에 사용
-// - fileName은 file의 이름의 해당
-
-formData.delete(name);
-// - 주어진 name 으로 필드를 제거
-
-formData.get(name);
-// - 주어진 name 의 해당 하는 필드 value를 반환
-
-formData.getAll(name);
-// - append 함수로 추가시 name이 중복 가능
-// - 따라서 주어진 name 의 해당 하는 필드의 모든 value를 반환
-
-formData.has(name);
-// - 주어진 name 의 해당하는 필드가 있을 경우 true, 없으면 false를 반환
-
-formData.set(name, value);
-formData.set(name, blob, fileName);
-// - set 함수는 append 함수 처럼 필드를 추가
-// - append와 비슷한 set 메소드는 set도 추가를 해주기는 하지만, 기존 key가 있으면 그 key값을 모두 덮어씌워버린다
-```
 
 ## 2024_09_19
 
@@ -53,3 +19,60 @@ formData.set(name, blob, fileName);
 
 {: .note }
 당연히 남용하면 타입스크립트 사용하는 의미가 없어진다.
+
+## 2024_09_28
+
+### 🚧🚧 Enum 🚧🚧
+
+🚧 ...작성중... 🚧
+{: .label .label-yellow }
+
+내가 chart를 만들고 pr을 날렸는데 팀장님이 enum 타입을 써서 string으로 되어있던 chart 타입을 좀더 좁혀주는게 좋겠다고 리뷰를 해줬다. 그래서 뭔지 찾아보았다.
+
+어떤 값이 들어오는지 어느정도 정해져있을때 값의 종류를 나열하여 그 값의 종류로 타입을 제한하는 것이다. 말이 어려우니 한번 보자
+
+```ts
+export async function getChart(chart: string) {
+  const response = await fetch(`https://api/${chart}`);
+  const body = await response.json();
+  return body;
+}
+```
+
+기존 코드다 chart의 타입이 string으로 어떤 string 값이든 파라미터로 받을 수 있다. 근데 해당 프로젝트의 chart string 값은 단 네가지 이다. "realtime" | "weekly" | "daily" | "total" 그렇기 때문에 이 네가지만 받을수 있도록 타입을 좁혀주는 것이 좋다.
+
+enum을 사용하면 아래와 같이 타입을 좁힐수있다.
+
+```ts
+enum EChartType {
+  REALTIME = "realtime",
+  WEEKLY = "weekly",
+  DAILY = "daily",
+  TOTAL = "total",
+}
+
+export async function getChart(chart: EChartType) {
+  const response = await fetch(`https://api/${chart}`);
+  const body = await response.json();
+  return body;
+}
+```
+
+chart에 값이 들어오고 이 값을 enum의 EChartType을 통해 검사하게되고 "realtime" | "weekly" | "daily" | "total" 중 있으면 정상적으로 함수를 실행시킨다.
+
+enum은 위와 같이 값을 지정안하면 0부터 차례로 값을 매긴다.
+
+```ts
+enum Day {
+  Day1, // 0
+  Day2, // 1
+  Day3, // 2
+}
+```
+
+그러면 사실 `const day : Day` 라고 선언하면 0,1,2가 들어올수도 있고 Day.Day1, Day.Day2, Day.Day3 도 들어올수있다. 이렇게 되면 예기치 못한 문제가 생길수 있기 때문에 값은 처음 봤던거 처럼 지정해두고 쓰는 것이 가장 올바른 사용방법이다. (0은 false로도 인식 되기 때문에 문제가 생길 수있다.)
+
+{: .highlight-title }
+
+> 🚧 Not finished yet
+> 우선은 이 정도로 정리하지만 앞으로 더 추가 될수도 있다. tree shaking 할 때 Enum이 안좋다는 말이 있어서...

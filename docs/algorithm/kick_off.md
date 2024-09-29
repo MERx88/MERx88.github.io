@@ -475,7 +475,7 @@ function solution(s) {
 
 ## 2024_09_13
 
-### A로 B 만들기 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴
+### 🚧🚧 A로 B 만들기 🚧🚧
 
 코딩테스트 문제
 {: .label .label-blue }
@@ -491,6 +491,71 @@ https://school.programmers.co.kr/learn/courses/30/lessons/120896
 **내 생각**
 
 **문제점**
+
+```js
+
+```
+
+## 2024_09_28
+
+### 🚧🚧 영어가 싫어요 🚧🚧
+
+🚧 ...작성중... 🚧
+{: .label .label-yellow }
+코딩테스트 문제
+{: .label .label-blue }
+프로그래머스
+{: .label .label-purple }
+
+https://school.programmers.co.kr/learn/courses/30/lessons/120896
+
+영어 문자열을 숫자로 바꾸는 문제 ex. zerotwo -> 02
+
+**내 생각**
+
+그냥 요소 돌면서
+
+- 하나씩 배열에 집어넣고 이 배열을 통째로 체크
+  -> 있다면 숫자로 변환 그후 배열 초기화
+  -> 없다면 다시 배열에 넣는 작업
+
+**내 코드**
+
+```js
+function solution(numbers) {
+  const text_arr = [
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+  ];
+  let temp_arr = [];
+  let answer = [];
+  const number_arr = [...numbers];
+  number_arr.forEach((el) => {
+    temp_arr.push(el);
+    if (text_arr.includes(temp_arr.join(""))) {
+      answer.push(text_arr.indexOf(temp_arr.join("")));
+      temp_arr = [];
+    }
+  });
+  return +answer.join("");
+}
+```
+
+**문제점**
+
+-
+
+**처음 알게 된 사실**
+
+- 스프레드 문법 하고 바로
 
 ```js
 

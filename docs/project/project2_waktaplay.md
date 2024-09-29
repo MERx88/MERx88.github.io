@@ -561,6 +561,8 @@ useEffect(() => {
 
 사실 처음에는 살짝 막막하고 오기 부리다가 삽질을 쬐금했는데 이런저런 기능을 써볼수있는 feature여서 나의 fe 지식이 조금은 더 확장 된거같은 기분,,,
 
+아래는 새로 알게된 개념들을 정리했다, checkbox도 이런저런 기능을 알게 되었고 무엇보다 useRef에 대해 알게 되었다.
+
 [useRef Link](https://tech.kakaopay.com/post/skeleton-ui-idea/)
 [checkbox Link](https://tech.kakaopay.com/post/skeleton-ui-idea/)
 
