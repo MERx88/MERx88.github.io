@@ -75,4 +75,5 @@ enum Day {
 {: .highlight-title }
 
 > 🚧 Not finished yet
+
 > 우선은 이 정도로 정리하지만 앞으로 더 추가 될수도 있다. tree shaking 할 때 Enum이 안좋다는 말이 있어서...
