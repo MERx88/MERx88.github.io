@@ -475,7 +475,7 @@ function solution(s) {
 
 ## 2024_09_13
 
-### 🚧🚧 A로 B 만들기 🚧🚧
+### A로 B 만들기
 
 코딩테스트 문제
 {: .label .label-blue }
@@ -486,14 +486,37 @@ function solution(s) {
 
 https://school.programmers.co.kr/learn/courses/30/lessons/120896
 
-한번만 등장한 문자들을 모아 문자열로 리턴하는 문제
+before 문자열의 순서를 바꾸어 after를 만들 수 있다면 1을 리턴하는 문제
 
 **내 생각**
 
+- after에 before 문자가 다있는지 확인하면 됨
+- 그렇다면 includes를 통해 한쪽 문자열을 싹다 제거해서 문자열이 0이되면? 1?
+- 근데...그러면 0이 안될수있는 경우도 있는거 아니야? 만약 한쪽 문자열이 짧으면? 이라고 생각해서 풀었다가 삽질함
+- `0 < before의 길이 == after의 길이 < 1,000` 이 조건이 있었음 ㅜㅜ 잘읽었어야하는데
+- 여튼 한쪽 0으로 만들기해서 잘품
+
 **문제점**
 
-```js
+- 조건좀 읽자!!!!!!!!!!!!
+- 그리고 삽질할때 배열돌때 해당 배열 요소 삭제되면 인덱스 건너뛴다 저번에도 이것땜에 고생했으니 명심하자
 
+**내 코드**
+
+```js
+function solution(before, after) {
+  var answer = 0;
+  let before_arr = [...before];
+  let after_arr = [...after];
+  before_arr.forEach((el) => {
+    if (after_arr.includes(el)) after_arr.splice(after_arr.indexOf(el), 1);
+  });
+
+  if (!after_arr.length) {
+    var answer = 1;
+  }
+  return answer;
+}
 ```
 
 ## 2024_09_28
@@ -549,14 +572,42 @@ function solution(numbers) {
 }
 ```
 
-**문제점**
+이렇게도 풀 수 있구나를 보려고한다🧐
 
--
-
-**처음 알게 된 사실**
-
-- 스프레드 문법 하고 바로
+**다른 사람 풀이**
 
 ```js
+function solution(numbers) {
+  const obj = {
+    zero: 0,
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
+    seven: 7,
+    eight: 8,
+    nine: 9,
+  };
 
+  const num = numbers.replace(
+    /zero|one|two|three|four|five|six|seven|eight|nine/g,
+    (v) => {
+      return obj[v];
+    }
+  );
+
+  return Number(num);
+}
 ```
+
+객체와 replace의 치환함수를 활용한 풀이법이다.
+
+따라가보면
+
+1. 우선 객체에 싹다 키밸류로 저장!
+2. replace 정규표현식으로 문자열을 검색한다.
+3. 문자열을 검색한걸 치환함수에 넘겨 객체에서 키값으로 찾아 바꾼다.
+
+🤩 `replace`를 잘활용하면 좋을거같다!

@@ -24,9 +24,6 @@ nav_order: 6
 
 ### 🚧🚧 Enum 🚧🚧
 
-🚧 ...작성중... 🚧
-{: .label .label-yellow }
-
 내가 chart를 만들고 pr을 날렸는데 팀장님이 enum 타입을 써서 string으로 되어있던 chart 타입을 좀더 좁혀주는게 좋겠다고 리뷰를 해줬다. 그래서 뭔지 찾아보았다.
 
 어떤 값이 들어오는지 어느정도 정해져있을때 값의 종류를 나열하여 그 값의 종류로 타입을 제한하는 것이다. 말이 어려우니 한번 보자
@@ -39,7 +36,7 @@ export async function getChart(chart: string) {
 }
 ```
 
-기존 코드다 chart의 타입이 string으로 어떤 string 값이든 파라미터로 받을 수 있다. 근데 해당 프로젝트의 chart string 값은 단 네가지 이다. "realtime" | "weekly" | "daily" | "total" 그렇기 때문에 이 네가지만 받을수 있도록 타입을 좁혀주는 것이 좋다.
+기존 코드다 chart의 타입이 string으로 어떤 string 값이든 파라미터로 받을 수 있다. 근데 해당 프로젝트의 chart string 값은 단 네가지 이다. "realtime","weekly","daily","total" 그렇기 때문에 이 네가지만 받을수 있도록 타입을 좁혀주는 것이 좋다.
 
 enum을 사용하면 아래와 같이 타입을 좁힐수있다.
 
@@ -58,7 +55,7 @@ export async function getChart(chart: EChartType) {
 }
 ```
 
-chart에 값이 들어오고 이 값을 enum의 EChartType을 통해 검사하게되고 "realtime" | "weekly" | "daily" | "total" 중 있으면 정상적으로 함수를 실행시킨다.
+chart에 값이 들어오고 이 값을 enum의 EChartType을 통해 검사하게되고 "realtime","weekly","daily","total" 중 있으면 정상적으로 함수를 실행시킨다.
 
 enum은 위와 같이 값을 지정안하면 0부터 차례로 값을 매긴다.
 
