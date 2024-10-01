@@ -22,10 +22,7 @@ has_children: true
 
 ## 2024_09_20
 
-### 🚧🚧 useRef 🚧🚧 사용법 부터 keep going 해야함
-
-🚧 ...작성중... 🚧
-{: .label .label-yellow }
+### useRef
 
 [react useRef](https://ko.react.dev/reference/react/useRef#useref)
 
@@ -72,6 +69,88 @@ function Stopwatch() {
 - 리렌더링 사이에 정보를 저장할수있다. -> 그냥 변수는 리렌더링하면 날아가니까!
 - 변경해도 리렌더링은 촉발되지않는다. -> state는 리렌더링 촉발 시키니까!
 - 각각 컴포넌트에 로컬로 저장된다. -> 외부변수는 정보공유가 되지만 ref는 로컬로 저장된다.
+
+**주의할 점**
+
+- 렌더링 중에는 ref를 읽거나 쓰지 말기! -> 무언가를 렌더링 중에 읽거나 써야한다면 state 사용하기
+
+🧐 why? 리액트는 컴포넌트가 순수하게 작동하기를 원함!
+
+컴포넌트 순수성이란? 아래 링크 ㄱㄱ
+[컴포넌트 순수하게 유지하기](###컴포넌트-순수하게-유지하기)
+
+```jsx
+function MyComponent() {
+  // ...
+  // 🚩 Don't write a ref during rendering
+  myRef.current = 123;
+  // ...
+  // 🚩 Don't read a ref during rendering
+  return <h1>{myOtherRef.current}</h1>;
+}
+
+function MyComponent() {
+  // ...
+  useEffect(() => {
+    // ✅ You can read or write refs in effects
+    myRef.current = 123;
+  });
+  // ...
+  function handleClick() {
+    // ✅ You can read or write refs in event handlers
+    doSomething(myOtherRef.current);
+  }
+  // ...
+}
+```
+
+**1️⃣ Dom 조작하기**
+
+```jsx
+import { useRef } from "react";
+
+export default function Form() {
+  const inputRef = useRef(null);
+
+  function handleClick() {
+    inputRef.current.focus();
+  }
+
+  return (
+    <>
+      <input ref={inputRef} />
+      <button onClick={handleClick}>Focus the input</button>
+    </>
+  );
+}
+```
+
+이와 같이 Dom을 조작할수있다. 사용법은 잘알기에 부가설명생략!
+
+{: .note }
+만약 초기값에 비싼 객체를 초기값에 할당해야하는 경우 이를 바로 초기값으로 설정하면 렌더링중에 계속 불러오니 성능이 저하될수 있다... 그러니 일단은 null을 넣어놓고 이를 체크해서 null일때 한번만 할당하는 방향으로 컴포넌트를 설계하자
+
+**커스텀 컴포넌트 ref 사용**
+
+```jsx
+const inputRef = useRef(null);
+
+return <MyInput ref={inputRef} />;
+```
+
+위와같이 ref를 커스텀컴포넌트에서 사용하려고 하면 오류가 생긴다.
+
+```jsx
+import { forwardRef } from "react";
+
+const MyInput = forwardRef(({ value, onChange }, ref) => {
+  return <input value={value} onChange={onChange} ref={ref} />;
+});
+
+export default MyInput;
+```
+
+그러니 해당 커스텀 컴포넌트에서 꼭 forwardRef를 감싸자 그러면 오류는 발생하지 않는다.
 
 ## 2024_09_21
 
