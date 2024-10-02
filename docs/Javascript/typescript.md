@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Typescript
+title: 📘 Typescript
 parent: Javascript
 nav_order: 6
 ---

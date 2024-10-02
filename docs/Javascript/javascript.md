@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Javascript
+title: 📙 Javascript
 nav_order: 3
 has_children: true
 ---

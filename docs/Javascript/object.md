@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Object
+title: 📦 Object
 parent: Javascript
 nav_order: 5
 ---

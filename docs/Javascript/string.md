@@ -1,6 +1,6 @@
 ---
 layout: default
-title: String
+title: 🆎 String
 parent: Javascript
 nav_order: 3
 ---

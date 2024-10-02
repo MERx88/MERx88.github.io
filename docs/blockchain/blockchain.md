@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Blockchain
+title: ⛓️ Blockchain
 nav_order: 5
 has_children: true
 ---

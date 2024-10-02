@@ -123,9 +123,35 @@ IP Account의 기능 을 확장 할수있는 스마트 컨트랙트 모듈
 
 실제 오프체인 법적 계약 이고 이걸 온체인 IP Asset에 첨부가능
 
-## 🚧🚧 story 개발 with React+Wagmi+Rainbowkit 🚧🚧
+## Module 살펴보기
 
-🚧 ...작성중... 🚧
-{: .label .label-yellow }
+### ⛏️ Base 모듈
 
-wagmi는 졸라 유명한 프론트엔드 라이브러리 이다. 리액트 훅을 드럽게 많이 지원해준다. 존나 고마운 녀석
+모든 모듈에 대한 기본 기능을 담고 있음
+
+```js
+// SPDX-License-Identifier: BUSL-1.1
+pragma solidity 0.8.26;
+
+import { IERC165, ERC165 } from "@openzeppelin/contracts/utils/introspection/ERC165.sol";
+import { IModule } from "../interfaces/modules/base/IModule.sol";
+
+/// @title BaseModule
+/// @notice Base implementation for all modules in Story Protocol.
+abstract contract BaseModule is ERC165, IModule {
+    /// @notice IERC165 interface support.
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165, IERC165) returns (bool) {
+        return interfaceId == type(IModule).interfaceId || super.supportsInterface(interfaceId);
+    }
+}
+```
+
+ERC165, IModule 을 상속받는다
+
+ERC165는 다른 컨트랙트가 특정 인터페이스를 지원하는지 체크할수있게 해준다.
+
+interdaceId가 Imodule의 인터페이스 ID와 일치하는 경우 true를 반환한다. 만약 그렇지 않으면 ERC165의 supportsInterface 함수를 호출하여 다른 인터페이스 지원 여부를 확인하게된다.
+
+### 📜 라이선스 모듈
+
+IPAsset에 라이센스 모듈을 사용하면 해당 라이센스 조건에 따라 다른 사람이 사용하는 걸 제한할수있음

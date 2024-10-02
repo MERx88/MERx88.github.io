@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Set & Map
+title: 🗂️ Set & Map
 parent: Javascript
 nav_order: 4
 ---

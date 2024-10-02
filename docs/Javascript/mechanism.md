@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Mechanism
+title: ⚙️ Mechanism
 parent: Javascript
 nav_order: 1
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Array
+title: 🃏 Array
 parent: Javascript
 nav_order: 2
 ---
