@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Story Protocol
+title: 🪅 Story Protocol
 parent: Blockchain
 nav_order: 2
 ---

@@ -20,7 +20,7 @@ nav_order: 3
 
 팬이 진심으로 해당 IP의 팬임을 인증할 수 있는 시스템과 데이터 주권을 보장하는 멤버쉽 플랫폼입니다. IP 소유자와 소비자 모두에게 상호 이익을 제공하며, 비공식 굿즈를 공식 인증 굿즈로 전환하여 새로운 가치를 창출합니다.
 
-### 개같은 오류 Trouble Shooting
+### 민팅 오류 Trouble Shooting 🚀
 
 Trouble Shooting
 {: .label .label-red }
@@ -84,20 +84,24 @@ Version: 2.21.9
 
 ![anya_serious](image-4.png)
 
-솔직히 디버깅도 해보고 이거저것 해보았다. 컨트랙트 abi 를 보기 위해서 세폴리아 테넷까지 들어가서 확인해보았지만 없어서 그냥 내가 nft 컨트랙트 배포하고 만다 생각하고 컨트랙트 생성하기로 했다.
+솔직히 디버깅도 해보고 이거저것 해보았다. 컨트랙트 abi 를 보기 위해서 세폴리아 테넷까지 들어가서 확인해보았지만 없어서 내가 그냥 컨트랙트 만들고 말지! 이랬는데 다른 브라우저 환경에서는 잘되고 나만 안되는거여서 혹시 브라우저,.,,,? 초기화 하면 되지않을까 했는데 되었다...띠밤! 정말 열받는다.
 
-### ERC-721 배포하기
+## 2024_10_01
 
-erc721에 어떤 함수가 있는지 어떻게 배포하는지 등은 알고 있다 물론 아주 오래전에 해서 기억이 가물가물 하다
+### IPA resister 오류 Trouble Shooting 🚀
 
-우선 내가 컨트랙트 전체를 만들어서 진행하는건 개오바니 openzepplin 써서 만들려고한다. 일단 나는 배포를 위해 hardhat 사용하기로 했다.
+Trouble Shooting
+{: .label .label-red }
 
-그러고 컨트랙트 작성시작
+산넘어 산이다...
 
-우선 nft 기본 기능을 제외하고 오버라이딩해야하는 기능들? 그리고 추가해야하는 기능들을 생각해보았다.
+{: .warning-title }
 
-1. 누구나 민팅가능
-2. 무제한 발급
-3. 이미지는 자신이 원하는 걸로
+> 오류 메세지
+> Uncaught (in promise) Error: Failed to register IP: The wallet client does not have an account, please try again.
+> at eval (story-protocol-react-sdk.esm.js:76:11)
+> at async registerExistingNFT (ResisterIPA.tsx:65:22)
 
-이는 그냥 내가 nft 만들었다는 것만 인증하고 이위에 나중에 story에서 제공하는 ipAsset으로 변환하기 위한 용도기에 요정도 기능이 필요했다.
+walletClient가 account가 없다고한다. 근데 난 지갑 연결 잘했는데? 🤷 그럼 민팅은 어캐하는건데 임마!
+
+근데 우선 이 문제를 보면서 viem의 client에 대해서 더 찾아보았다.

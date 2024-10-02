@@ -566,6 +566,95 @@ useEffect(() => {
 [useRef Link](https://tech.kakaopay.com/post/skeleton-ui-idea/)
 [checkbox Link](https://tech.kakaopay.com/post/skeleton-ui-idea/)
 
+### ✅ checkBox 컴포넌트 설계하기
+
+체크박스 컴포넌트 재사용성을 생각하며 다시설계하다가 새로 알게 된 사실들과 개선된 체크박스 설계를 어떻게 했는지 적어본다
+
+전체선택을 구현하다가 나의 체크박스 설계가 잘못되었다는 것을 알고 기존 코드를 수정하게 되었다. 정확하게는 input checkbox에 대한 이해가 부족해서 온전하게 체크박스의 기능을 사용하지 못해 확장성, 재사용성이 떨어지는 컴포넌트였다.
+
+**기존 코드**
+
+_styled components로 작성된 css는 생략했다._
+
+```jsx
+import React from "react";
+import styled from "styled-components";
+import CheckboxChecked from "@assets/icons/checkbox_filled.svg";
+import CheckboxUnchecked from "@assets/icons/checkbox_unfilled.svg";
+
+const CheckBox = ({
+  id,
+  name,
+  value,
+  text,
+  isChecked = false,
+  setIsChecked,
+}: {
+  id: string,
+  name?: string,
+  value?: string,
+  text?: string,
+  isChecked: boolean,
+  setIsChecked: React.Dispatch<React.SetStateAction<boolean>>,
+}) => {
+  return (
+    <Container htmlFor={id} text={text}>
+      <HiddenCheckbox
+        type="checkbox"
+        id={id}
+        name={name}
+        value={value}
+        checked={isChecked}
+        onChange={() => {
+          setIsChecked(!isChecked);
+        }}
+      />
+      <img src={isChecked ? CheckboxChecked : CheckboxUnchecked} />
+      {text ? <Text>{text}</Text> : null}
+    </Container>
+  );
+};
+
+export default CheckBox;
+```
+
+체크박스 전체선택을 구현하면서 맞닥뜨린 문제는 우선 두가지였다.
+
+- react hook인 useRef를 통한 ref를 사용못하는 것 -> 유용한 ref를 사용하지못해 다른방법으로 Dom에 접근해야한다는 것
+- onChange를 사용하지 못하는 것 -> 체크박스 체크만 가능하고 다른 이벤트는 일으킬수 없는것
+
+기존 코드는 onChange를 check 만을 컨트롤 하고 있었다. 그리고 부모 컴포넌트에서 useState를 하나 선언한뒤 그저 true 와 false를 반환하고 ui를 그에 맞게 렌더링 하고 있을 뿐이었다.
+
+**ref 받아오기**
+
+ref를 받아오는 것은 어렵지 않았다. 부모에서 받아오는 ref를 <HiddenCheckbox>에 잘 넘겨주기만 한다면 된다. 근데 이때 forwardRef를 통해 컴포넌트를 감싸주어야한다.
+
+**onChange 받아오기**
+
+onChange를 받아오는 과정에서 그냥 onChange를 받아서 내려주다가 state를 어떻게 바꿔주지 라는 생각이 들었다. 그러면 우선 onChange를 onChange에 넣어주자 setiseChecked를 넣어주었던거 처럼!
+
+```js
+return (
+  <Container htmlFor={id} text={text}>
+    <HiddenCheckbox
+      type="checkbox"
+      id={id}
+      name={name}
+      value={value}
+      checked={isChecked}
+      onChange={(e) => {
+        onChange(e);
+        setIsChecked(!isChecked);
+      }}
+    />
+    <img src={isChecked ? CheckboxChecked : CheckboxUnchecked} />
+    {text ? <Text>{text}</Text> : null}
+  </Container>
+);
+```
+
+하지만 이는 부모에서 꼭 onChange를 내려주어야만 작동했다. 왜냐하면
+
 ##🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧작성해야하는 녀석들🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
 
 <!-- ### 무한 스크롤 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴 근데 이거 구현 안할듯

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Sort
+title: 🎰 Sort
 parent: Algorithm
 nav_order: 2
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Ethereum
+title: 🌐 Ethereum
 parent: Blockchain
 nav_order: 1
 ---
