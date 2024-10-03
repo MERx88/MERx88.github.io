@@ -328,7 +328,7 @@ pages/charts
 
 파일수를 확줄일수있게 되었고 중복 코드는 많이 사라졌다 👍
 
-##2024_09_20
+## 2024_09_20
 
 ### ✅🤯✅🤯✅🤯✅🤯✅🤯 checkBox 전체선택 구현하기~ 🤯✅🤯✅🤯✅🤯✅🤯✅
 
@@ -566,6 +566,10 @@ useEffect(() => {
 [useRef Link](https://tech.kakaopay.com/post/skeleton-ui-idea/)
 [checkbox Link](https://tech.kakaopay.com/post/skeleton-ui-idea/)
 
+---
+
+## 2024_10_04
+
 ### ✅ checkBox 컴포넌트 설계하기
 
 체크박스 컴포넌트 재사용성을 생각하며 다시설계하다가 새로 알게 된 사실들과 개선된 체크박스 설계를 어떻게 했는지 적어본다
@@ -631,29 +635,139 @@ ref를 받아오는 것은 어렵지 않았다. 부모에서 받아오는 ref를
 
 **onChange 받아오기**
 
-onChange를 받아오는 과정에서 그냥 onChange를 받아서 내려주다가 state를 어떻게 바꿔주지 라는 생각이 들었다. 그러면 우선 onChange를 onChange에 넣어주자 setiseChecked를 넣어주었던거 처럼!
+onChange를 받아서 적당히 내려주고 setIschecked랑 onChange 함수를 전부 onChange에 넣어주면 된다. 근데 이때 onChange가 없을수도 있으므로 if문으로 있을때만 실행시켜야 오류가 발생하지 않는다.
 
-```js
-return (
-  <Container htmlFor={id} text={text}>
-    <HiddenCheckbox
-      type="checkbox"
-      id={id}
-      name={name}
-      value={value}
-      checked={isChecked}
-      onChange={(e) => {
-        onChange(e);
-        setIsChecked(!isChecked);
-      }}
-    />
-    <img src={isChecked ? CheckboxChecked : CheckboxUnchecked} />
-    {text ? <Text>{text}</Text> : null}
-  </Container>
-);
+ref, onChange를 적용시키면 다음과 같이 된다.
+
+```jsx
+const checkRef = useRef(null);
+const [isChecked, setIsChecked] = useState(false);
+
+function handleSomething() {
+  console.log("ref", checkRef.current.checked);
+  console.log("hello");
+  console.log("check?", isChecked);
+}
+const App = () => {
+  return (
+    <>
+      <P>{isChecked ? "true" : "false"}</P>
+      <CheckBox
+        text="checkbox"
+        id="hello"
+        ref={checkRef}
+        checked={isChecked}
+        setIsChecked={setIsChecked}
+        onChange={handleSomething}
+      />;
+    </>
+  );
+};
 ```
 
-하지만 이는 부모에서 꼭 onChange를 내려주어야만 작동했다. 왜냐하면
+```jsx
+const CheckBox = React.forwardRef<
+  HTMLInputElement,
+  {
+    id: string
+    name?: string
+    value?: string
+    text?: string
+    checked: boolean
+    setIsChecked?: React.Dispatch<React.SetStateAction<boolean>>
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  }
+>(({ id, name, value, text, checked = false, setIsChecked, onChange }, ref) => {
+  return (
+    <Container htmlFor={id} text={text}>
+      <HiddenCheckbox
+        type="checkbox"
+        id={id}
+        name={name}
+        value={value}
+        checked={checked}
+        ref={ref}
+        onChange={e => {
+          if (onChange) {
+            onChange(e)
+          }
+          setIsChecked(!checked)
+        }}
+      />
+      <img src={checked ? CheckboxChecked : CheckboxUnchecked} />
+      {text ? <Text>{text}</Text> : null}
+    </Container>
+  )
+})
+```
+
+근데 이제 살펴볼건 handleSomething 내에 있는 console의 결과이다.
+
+![console res](<스크린샷 2024-10-03 오후 11.15.59 복사본.png>)
+
+응? 값들은 다음과 같았다.(hello는 그냥 찍었다 ㅎㅎ)
+
+- handleSomething내의 ref를 활용한 checkRef.current.checked로 찍은 체크 결과 : ✅ true
+- 컴포넌트 렌더링 isChecked의 체크 결과 : ✅ true
+- handleSomething내의 isChecked의 체크 결과 : ❌ false
+
+처음에는 좀 당황스러웠다. 전부다 true가 나올줄 알았지만 함수내에서 쓰이는 isChecked state는 false가 나오는 것이었다.
+
+역시 난 아직 리액트녀석을 잘모른다... 내가 흔히 사용하는 useState는 비동기로 작동한다는 것을 이번 기회에 알게 되었고 공식 문서를 찾아본 결과 공식문서도 이에 대한 답변을 하고있었다.
+
+[React 공식 문서](https://ko.react.dev/reference/react/useState#ive-updated-the-state-but-logging-gives-me-the-old-value)
+
+함수를 실행해도 실행중인 함수안에서 state는 변하지 않는다. 그이유를 **state는 스냅샷 처럼 작동**하기때문이다라고 설명하고 있었다.
+
+**📸 스냅샷으로서의 state**
+
+```jsx
+import { useState } from "react";
+
+export default function Counter() {
+  const [bool, setBool] = useState(false);
+
+  return (
+    <>
+      <h1>{number}</h1>
+      <button
+        onClick={() => {
+          setBool(true);
+          alert(bool);
+        }}
+      >
+        +5
+      </button>
+    </>
+  );
+}
+```
+
+![alt text](<스크린샷 2024-10-04 오전 12.15.04.png>)
+
+코드와 사진을 보며 이해해보았다.
+
+1. 첫번째 사진 : onClick이 발생한다!
+
+2. 두번째 사진 : 리액트는 onClick이 true로 바뀌었네? 새롭게 렌더링 전에 우선 **따로** 적어놔야지~ 하는 이 순간 원래 있던 alert는 **따로** 적어놓은 state에 영향을 받지않고 false를 그대로 alert를 띄우게된다. 즉, 바로 지금 스냅샷의 state를 활용해 prop, 이벤트 핸들러, 로컬 변수를 계산한다.
+
+3. 세번째 사진 : 그러고 리액트는 그제서야 따로 적어둔(업데이트해둔) state를 포함에 렌더링한다.
+
+**다시 결과를 보자**
+
+- handleSomething내의 ref를 활용한 checkRef.current.checked로 찍은 체크 결과 : ✅ true
+
+👉 ref를 이용하면 Dom 자체의 checked의 속성을 가져오기에 리액트 state, 렌더링하고는 아무상관없이 input checkbox가 체크되었는지 안되었는지 가져올수있다.
+
+- 컴포넌트 렌더링 isChecked의 체크 결과 : ✅ true
+
+👉 state가 바뀌었고 이 state를 반영해서 렌더링했기 때문에 true가 나온다. 위의 세번째 사진 이후라고 보면 좋을거 같다.
+
+- handleSomething내의 isChecked의 체크 결과 : ❌ false
+
+👉 렌더링 이전 즉, handleSomething이 불리는 시점의 스냅샷 state를 가져오기 때문에 false를 반환한다. 이 시점은 두번째 사진 시점이다. isChecked가 따로 true로 적혀있기 때문에 console.log는 이를 인지하지 못한다.
+
+👍 굳뜨
 
 ##🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧작성해야하는 녀석들🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
 
