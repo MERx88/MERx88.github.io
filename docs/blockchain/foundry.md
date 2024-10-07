@@ -109,3 +109,23 @@ broadcast/dry-run/(체인 Id)/run-latest.json 에 들어가면 아래와 같은 
 
 
 accessList : 이는 트랜잭션이 액세스할 가능성이 있는 주소와 관련된 저장소 키 목록을 포함하여 EVM이 트랜잭션 실행 중 저장소 접근 비용을 더 효율적으로 계산할 수 있도록 한다 라고 한다. 귀찮아서 복붙했다.😅 그니까 캐시마냥 기억해둬서 효율적으로 계산하는 필드다 뭐그런뜻이다
+
+
+## 2024_10_07
+
+**CLI로 상호작용하기**
+
+cast : CLI에서 해당 명령어를 사용하면 블록체인과 상호작용가능하다 
+
+```zsh
+cast send 0x5FbDB2315678afecb367f032d93F642f64180aa3 "store(uint256)" 1337 --rpc-url $RPC_URL --private-key $PRIVATE_KEY
+```
+*cast send example*
+
+```zsh
+cast call 0x5FbDB2315678afecb367f032d93F642f64180aa3 "retrieve()"
+```
+*cast call example*
+
+{ .important }
+0x2 : EVM의 현재 기본 트랜잭션 타입
