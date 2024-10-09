@@ -769,6 +769,102 @@ export default function Counter() {
 
 👍 굳뜨
 
+## 2024_10_09
+
+### 💀 스켈레톤에 대하여 2
+
+![skeleton](image-6.png)
+
+Chart의 UX를 개선하다가 api 요청시간동안 스켈레톤을 어떻게 보여줘야할지 생각해보았다 저번에 참고했던 카카오 블로그와 이번엔 토스의 한 동영상을 함께 참고해서 만들어 보았다.
+
+[스켈레톤에 대한 카카오 테크 블로그 링크](https://tech.kakaopay.com/post/skeleton-ui-idea/)
+
+[토스ㅣSLASH 22 - 토스 앱 오픈시간 1초를 줄이기까지](https://www.youtube.com/watch?v=IVt7HjUM0LQ)
+
+api를 엄청 빠르게 불러온다면 스켈레톤은 오히려 UX를 저하시킨다는 사실은 저번에 알아보았다.
+
+두 기업에서 똑같이 적용하는 부분이 있었는데 응답속도가 일정 시간 이하라면 progress indicator와 스켈레톤 등을 안보여주고 일정시간 이상이라면 보여준다는 것이었다. 특히 카카오는 사람들의 사용성에 따라 기준 시간을 조정하고 있었다.
+
+그렇기에 나도 해당 방법을 적용하기로 했다. 근데 이제 커스텀 hook을 곁들였다.
+
+아래 처럼 스켈레톤을 만들때 다른 개발자들이 커스텀할수있도록 skeleton.tsx를 만들어 두었다.
+
+```jsx
+function ChartSkeletons() {
+  const isDeferred = useDefer();
+
+  if (!isDeferred) {
+    return null;
+  }
+
+  return (
+    <Container>
+      {Array.from({ length: 100 }, (_, index) => (
+        <ChartItemSkeleton key={index}>
+          <ChartItemLeft>
+            <CheckBoxRankSkeleton />
+            <MusicInfoSkeleton />
+          </ChartItemLeft>
+          <ArtistSkeleton />
+          <ChartItemRightSkeleton />
+        </ChartItemSkeleton>
+      ))}
+    </Container>
+  );
+}
+
+const BaseSkeleton = styled.span`
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -150px;
+    height: 100%;
+    width: 150px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(91, 91, 91, 0.5),
+      transparent
+    );
+    animation: ${loading} 3s infinite;
+  }
+`;
+
+//이 밑에는 스타일드 컴포넌트로 만들어진 태그가 있고 이를 재사용할수있게 해두었다. 하나 빼고 모두 생략했다.
+```
+
+그리고 지연을 시키는 hook은 스켈레톤 뿐만 아니라 어디서든 재사용할 여지가 있다고 판단하여 Hook으로 빼두었다.
+
+```js
+import { useState, useEffect } from "react";
+
+export function useDefer(delay: number = 200) {
+  const [isDeferred, setIsDeferred] = useState(false);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsDeferred(true);
+    }, delay);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  return isDeferred;
+}
+```
+
+아주 간단하다 딜레이시킬 시간을 받고 이 시간이 지나면 state를 true로 바꾸는 것이다.
+
+그리고 커스텀 훅도 이번기회에 공식문서를 보며 정리를 한번했다.
+
+[커스텀 Hook!](https://www.youtube.com/watch?v=IVt7HjUM0LQ)
+
+아직 많은 프로젝트를 해보지 않아 api 응답 시간에 대해 고려를 많이 해보지 못했지만 다른 기업이나 사람들이 먼저 시도해본것들을 하나씩 적용하며 UX를 더 잘 뽑아보려한다. 👊👊👊
+
 ##🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧작성해야하는 녀석들🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
 
 <!-- ### 무한 스크롤 🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴 근데 이거 구현 안할듯

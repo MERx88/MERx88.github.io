@@ -11,6 +11,9 @@ has_children: true
 
 아직은 잘나가는 웹프레임워크
 
+{: .important }
+해당 문서는 웬만하면 공식 문서를 기반으로 작성됩니다.
+
 ## Re-rendering
 
 **리렌더링이 되는 시점**
@@ -313,6 +316,70 @@ export default function TeaGathering() {
 > ✅ 또한 순수하기 때문에 연산을 중단을 안전하게 언제든지 할수 있음
 >
 > 순수하게 유지하면 할수록 개이득임!
+
+## 2024_10_09
+
+### 🚧🚧 커스텀 Hook! 🚧🚧
+
+![Hooooook](image-2.png)
+
+[커스텀 Hook으로 로직 재사용하기-공식문서](https://ko.react.dev/learn/reusing-logic-with-custom-hooks)
+
+모든 함수가 그렇듯이 hook 또한 어떻게를 숨기고 무엇을 하는지만 나타내면 된다
+
+규칙이 몇가지 있다 살펴보자
+
+1. Hook의 이름은 use 뒤에 대문자로 시작해야 한다.
+2. 커스텀 훅은 Hook을 내장하고 있어야한다. Hook이 없다면 그냥 유틸함수다. -> hook은 hook과 컴포넌트에서만 사용가능하다라는 말과 비슷한 느낌쓰이다.
+3. 구체적인 일을 하도록 Hook을 만들자 -> 용도를 명확히 하라는 뜻이다 밑의 예시를 보면 좋다
+
+```jsx
+// 🔴 안 좋은 예시 : Hook을 사용하고 있지 않는 Hook.
+function useSorted(items) {
+  return items.slice().sort();
+}
+
+// ✅ 좋은 예시 : Hook을 사용하지 않는 일반 함수.
+function getSorted(items) {
+  return items.slice().sort();
+}
+```
+
+_2번 예시_
+
+```jsx
+function ChatRoom({ roomId }) {
+  const [serverUrl, setServerUrl] = useState("https://localhost:1234");
+
+  // 🔴 안 좋은 예 : 커스텀 "생명 주기" Hook을 사용
+  useMount(() => {
+    const connection = createConnection({ roomId, serverUrl });
+    connection.connect();
+
+    post("/analytics/event", { eventName: "visit_chat" });
+  });
+  // ...
+}
+
+// 🔴 안 좋은 예 : 커스텀 "생명 주기" Hook을 생성
+function useMount(fn) {
+  useEffect(() => {
+    fn();
+  }, []); // 🔴 React Hook useEffect은 'fn'의 의존성을 갖고 있지 않음.
+}
+```
+
+_3번 예시_
+
+{: .note-title }
+
+> 커스텀 Hook에 대한 Fun?뻔한 이야기
+>
+> ✅ 커스텀 Hook은 state 그 자체를 공유하는게 아닌 state 저장 로직을 공유하도록 한다.
+>
+> ✅ 커스텀 hook 안의 코드는 당연하게도 hook 이기때문에 재렌더링 될때마다 가장 최신의 props와 state를 받아 다시 실행된다. 그렇기 때문에 커스텀 hook은 순수해야한다.
+
+커스텀 hook 공식문서를 보면서 느낀건 병적으로 Effect를 커스텀 hook으로 빼고 싶어한다.🤣🤣🤣 흠 앞으로 hook으로 빼면 좋을 만한 친구들을 빼는 연습을 더 고민하면서 해봐야겠다.
 
 > ##🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧작성해야하는 녀석들🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
 
