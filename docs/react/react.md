@@ -319,7 +319,7 @@ export default function TeaGathering() {
 
 ## 2024_10_09
 
-### 🚧🚧 커스텀 Hook! 🚧🚧
+### 커스텀 Hook!
 
 ![Hooooook](image-2.png)
 

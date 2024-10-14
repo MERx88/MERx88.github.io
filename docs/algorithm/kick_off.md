@@ -663,4 +663,49 @@ function solution(my_str, n) {
 
 🧠 몇 가지 지식들이 코드를 간단하게 만든다...
 
+> ![eval si sival](image-1.png) > _누가 eval 써서 푼 문제가 있는데 그냥 알지도 말자_
+
+## 2024_10_10
+
+### 🚧🚧 치킨 쿠폰 🚧🚧
+
+🚧 ...작성중... 🚧
+{: .label .label-yellow }
+코딩테스트 문제
+{: .label .label-blue }
+프로그래머스
+{: .label .label-purple }
+
+https://school.programmers.co.kr/learn/courses/30/lessons/120884
+
+치킨 쿠폰을 고려해서 서비스 받는 치킨 갯수를 구하는 문제
+
+**생각 못한 것**
+
+**문제점**
+
+**내 코드**
+
+```js
+function solution(chicken) {
+  let answer = -chicken;
+  let coupon_num = 0;
+  let chick_num = chicken;
+
+  while (chick_num > 0) {
+    const next_chick_num = Math.floor(chick_num / 10);
+    coupon_num += chick_num % 10;
+    answer += chick_num;
+    if (coupon_num > 9) {
+      chick_num = next_chick_num + 1;
+      coupon_num = coupon_num % 10;
+    } else {
+      chick_num = next_chick_num;
+    }
+    console.log(answer);
+  }
+  return answer;
+}
+```
+
  <!-- 🚧🚧 set에 대해서 더공부,,, 🚧🚧 -->
