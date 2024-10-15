@@ -21,11 +21,11 @@ Github Description
 
 ... (생략) ... -->
 
-# Welcome to Mer Blog
+# Welcome to Mer HDD 💽
 
 안녕하세요 너무 게으른 mer입니다
 
-<img src="../../assets/images/Ryo Yamada.jpeg" width="360px">
+<img src="../../assets/images/monkey.jpeg" width="360px">
 
 가보자잇 👍
 
