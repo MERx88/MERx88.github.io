@@ -222,3 +222,165 @@ describe("문자열 계산기", () => {
 4. 잘못된 입력일 경우 "[ERROR]" 메세지 발생 및 종료 하는 기능
 
 이제 세팅 후 진짜 코딩을 진행해보자 -->
+
+## 2024_10_17
+
+### 🛠️ 기능 구현
+
+**사용자에게 문자열을 입력 받는 기능**
+
+콘솔에서 문자열을 입력 받는건 어렵지 않지만 조건이 있었다.
+
+```
+@woowacourse/mission-utils에서 제공하는 Console API를 사용하여 구현해야 한다.
+사용자의 값을 입력 및 출력하려면 Console.readLineAsync()와 Console.print()를 활용한다.
+```
+
+그렇다면 해당 레포를 찾아가 어떻게 돌아가는지 확인할 필요가 있지않겠는가? 바로 보러갔다.
+
+woowacourse/mission-utils를 전부다 보고 싶었지만 출력 입력과 관련된 Console.js 파일만 우선 살펴보았다.
+
+```js
+import readline from "readline";
+
+class Console {
+  constructor() {}
+
+  static readLine(query, callback) {
+    if (arguments.length !== 2) {
+      throw new Error("arguments must be 2.");
+    }
+
+    if (typeof query !== "string") {
+      throw new Error("query must be string");
+    }
+
+    if (typeof callback !== "function") {
+      throw new Error("callback must be function");
+    }
+
+    if (callback.length !== 1) {
+      throw new Error("callback must have 1 argument");
+    }
+
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+
+    rl.question(query, callback);
+  }
+
+  static readLineAsync(query) {
+    return new Promise((resolve, reject) => {
+      if (arguments.length !== 1) {
+        reject(new Error("arguments must be 1"));
+      }
+
+      if (typeof query !== "string") {
+        reject(new Error("query must be string"));
+      }
+
+      const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+      });
+
+      rl.question(query, (input) => {
+        rl.close();
+        resolve(input);
+      });
+    });
+  }
+
+  static print(message) {
+    console.log(message);
+  }
+}
+
+export default Console;
+```
+
+총 세개의 메서드가 포함된 클래스이다.
+
+엄청 자세히는 뜯어볼 필요 없는거 같다. 간단히 살펴보면
+
+출력인 print는 우리가 흔히 쓰는 `console.log();`를 랩핑해두었다 아마 입력과 출력 모두 통일성을 주기 위해서 한번 랩핑한거같다
+
+입력은 두가지 메서드가 있었는데 둘다 readline 모듈을 불러서 인터페이스 객체 만들고 `rl.question()`를 통해 사용자 입력을 받고 있었다 둘의 차이는 콜백 방식이냐 비동기 방식이냐의 차이이다.
+
+요구사항에서 `Console.readLineAsync()와 Console.print()를 활용한다.`라고 나와있기에 이를 가지고 작성해보면
+
+```js
+const userInput = await Console.readLineAsync(
+  "덧셈할 문자열을 입력해 주세요.\n"
+);
+Console.print(userInput);
+```
+
+간단하게 입력및 출력 하는 기능을 만들수있다.
+
+## 2024_10_19
+
+**기본 구분자로 파싱하는 기능**
+
+이기능은 사실 자바스크립트 메서드중 split이 바로 생각나서 받은 문자열에 split을 정규표현식과 함께 적어주어 ,와 : 로 간단하게 나누는 기능을 만들수 있었다.
+
+`const parsedInput=userInput.split(/[,:]/)`
+
+그런데 한가지 조건이 있었다. 바로 아무 문자열도 받지않았을때의 처리이다. 이것은 잘못된 입력에 대한 처리는 아니기 때문에 처리를 이 기능에서 해주는게 맞겠다고 생각했다.
+
+요구사항예시를 보면 ""을 받으면 0으로 출력해야한다. 그래서 간단하게 userInput이 있는 지 확인하고 처리하는 조건문을 달아주었다. 그리고 이과정에서 스페이스는 빈문자열이라고 인식할까? 생각해서 스페이스를 userInput으로 넣어 주었는데 스페이스도 하나의 문자로 본다는 점을 좀 새롭게 알았다. 이는 나중에 잘못된 입력과 함께 처리해보려한다.
+
+```js
+if (userInput) {
+  const parsedInput = userInput.split(/[,:]/);
+  Console.print(parsedInput);
+} else {
+  Console.print(0);
+}
+```
+
+**커스텀 구분자로 파싱하는 기능**
+
+이 기능을 구현하기 전 사전에 생각했던 아래 세가지 기능을 포함해서 기능을 짜야한다.
+
+**한번에 여러 커스텀 구분자를 받아 하나이상의 구분자로도 구분 할수있는 기능**
+**커스텀 구분자를 입력했을 때 커스텀 구분자로도 구분하고 기본 구분자로도 구분하는 기능**
+**커스텀 구분자는 (//),(\n) 로 감싸여져있는 구분자는 모두 커스텀 구분자로 사용가능한 기능**
+
+//우선 모든 델리미터를 받을 배열이 하나 필요함
+//그리고 //~\n 까지 계속 잘라서 넣을거기 때문에 첫 시작이 //이면 계속 돌면서 저장하면 좋을듯
+//그러면 slice로 잘라 넣으면 될듯
+//그리고 스트링은 불변이기에 앞부분 잘라서 재할당 필요함
+//만약 커스텀 구분자 있으면 기본 구분자랑 같이 구분자로 해당 문자열 파싱할수있도록 처리
+
+새로 알게된거
+
+\n은 굉장히 특수해서 문자열 찾기에서도 특별 취급함  
+문자열을 조작할기 위해서 정규표현식을 잘알고잇으면 매우 좋음  
+그리고 이 프리코스는 정규표현식에 대한 이해도도 묻고있는거 같음 아니면 패턴 매칭을 하는 방법은 생각보다 까다롭기에 아마 까다롭게 풀으라는 이야기는 아닌거같음 그리고 자바스크립트 문자열 메서드는 생각보다 정규표현식을 가지고 하는 메서드가 많기에 더더욱 이런걸 물어보는거 같음 너 쟈스 스트링 메서드와 정규표현힉으로 어디까지 지지고 볶을 수잇어?  
+빈배열도 트루다...첨알앗다...
+
+**추출한 숫자를 더하고 출력하는 기능**
+
+리듀스 사용하면 쉬움
+
+## 2024_10_20
+
+**잘못된 입력일 경우 "[ERROR]" 메세지 발생 및 종료 하는 기능**
+
+//무엇이 잘못된 값인가?
+
+// 우선 시작이 //로 시작하거나 숫자 그리고 기본 구분자 아니면 싹다 잘못된 값인듯?
+// //로시작 하지않을 경우 + \n으로 닫아야함
+// 숫자로 시작 하지 않을 경우
+// ,: 로 시작하지않을 경우
+
+// 커스텀 구분자와 기본 구분자 그 어느것도 아닌 구분자가 만약 숫자사이에 끼여 있다면? 이건 에러 뱉어야함
+// 파싱해서 담았는데 이 값이 양의 정수가 아닌경우
+
+//생각해보니
+//커스텀 규칙을 한번 체크할필요는 있겠네
+
+//흠 예외 처리흫 세분화 해야할듯 앞으로는...
