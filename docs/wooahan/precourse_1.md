@@ -5,7 +5,7 @@ parent: Wooahan Tech Course
 nav_order: 1
 ---
 
-# 프리코스 1주차
+# 프리코스 1주차 (문자열 덧셈 계산기)
 
 ## Table of contents
 
@@ -467,7 +467,7 @@ return : delimetersPattern
 
 부동소숫점 오차는 소수끼리 더했을때 1.2+2.3=3.5가 나와야하지만 3.500000000003 이런식으로 약간 씩의 오차가 생기는 것을 말한다. 왜 생길까? 이에 대해선 아래 링크를 참고하자!
 
-[부동소숫점](https://merx88.github.io/docs/Javascript/mechanism/#%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%83%80%EC%9E%85)
+[부동소숫점](https://merx88.github.io/docs/Javascript/mechanism/#%EB%B6%80%EB%8F%99-%EC%86%8C%EC%88%AB%EC%A0%90-%EC%98%A4%EC%B0%A8)
 
 이를 해결하려면 결국 3.500000000003 에서 00000000003 부분을 버림해야하는거다. 단순히 toFixed나 round floor등으로 수정하면 된다고 생각하지만 어디까지 살려야하는지 명확한 기준을 알려줘야한다.
 
