@@ -73,10 +73,24 @@ string.slice(-4); //'jang'
 
 ## String.prototype.indexOf
 
-String.prototype.substring과 동일하게 작동한다. 한가지 다른 점은 음수인 인수를 받을수 있다.
+대상 문자열에서 인수로 전달 받은 문자열을 검색하여 첫번째 인덱스를 반환한다.
+
+**특징**
+
+1. 검색 실패 -> -1 반환
+
+2. 두번째 인수로 검색 시작 인덱스 알려줄수있음
+
+3. 문자열도 검색가능 -> 이때 제일 첫번째 문자 인덱스를 반환
+
+4.
 
 ```js
 const string = "oh hello jang";
 
-string.slice(-4); //'jang'
+string.indexOf("h"); //'1'
+
+string.indexOf("hello"); //'3'
+
+string.indexOf("mer"); //'-1'
 ```
