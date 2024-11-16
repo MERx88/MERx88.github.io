@@ -2,7 +2,7 @@
 layout: default
 title: 📘 Typescript
 parent: Javascript
-nav_order: 7
+nav_order: 14
 ---
 
 # Typescript
